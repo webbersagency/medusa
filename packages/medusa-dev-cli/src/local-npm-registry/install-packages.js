@@ -39,7 +39,9 @@ const installPackages = async ({
 
     let workspacesLayout
     try {
-      workspacesLayout = JSON.parse(JSON.parse(stdout).data)
+      workspacesLayout = yarnVersion.startsWith("3")
+          ? stdout.split(require('os').EOL).filter(Boolean).map(x => JSON.parse(x)).reduce((acc, x) => ({...acc, [x.name]: x }), {})
+          : JSON.parse(JSON.parse(stdout).data)
     } catch (e) {
       /*
       Yarn 1.22 doesn't output pure json - it has leading and trailing text:
@@ -126,13 +128,21 @@ const installPackages = async ({
 
     // package.json files are changed - so we just want to install
     // using verdaccio registry
-    const yarnCommands = [`install`]
+    let yarnCommands = [`install`]
 
-    if (!externalRegistry) {
-      yarnCommands.push(`--registry=${registryUrl}`)
+    if (yarnVersion.startsWith("3")) {
+      if (!externalRegistry) {
+        installCmd = [`YARN_REGISTRY="${registryUrl}" yarn`, yarnCommands];
+      } else {
+        installCmd = [`yarn`, yarnCommands];
+      }
+    } else {
+      if (!externalRegistry) {
+        yarnCommands.push(`--registry=${registryUrl}`)
+      }
+
+      installCmd = [`yarn`, yarnCommands]
     }
-
-    installCmd = [`yarn`, yarnCommands]
   } else {
     const yarnCommands = [
       `add`,
@@ -143,14 +153,23 @@ const installPackages = async ({
       `--exact`,
     ]
 
-    if (!externalRegistry) {
-      yarnCommands.push(`--registry=${registryUrl}`)
-    }
+    if (yarnVersion.startsWith("3")) {
+      if (!externalRegistry) {
+        installCmd = [`YARN_REGISTRY="${registryUrl}" yarn`, yarnCommands];
+      } else {
+        installCmd = [`yarn`, yarnCommands];
+      }
+    } else {
+      if (!externalRegistry) {
+        yarnCommands.push(`--registry=${registryUrl}`)
+      }
 
-    installCmd = [`yarn`, yarnCommands]
+      installCmd = [`yarn`, yarnCommands]
+    }
   }
 
   try {
+    console.log('installCmd', installCmd)
     await promisifiedSpawn(installCmd)
 
     console.log(`Installation complete`)

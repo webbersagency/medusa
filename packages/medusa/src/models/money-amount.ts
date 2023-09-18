@@ -31,6 +31,9 @@ export class MoneyAmount extends SoftDeletableEntity {
   @Column({ type: "int" })
   amount: number
 
+  @Column({ type: "int" })
+  compare_at_price: number
+
   @Column({ type: "int", nullable: true })
   min_quantity: number | null
 
@@ -137,9 +140,14 @@ export class MoneyAmount extends SoftDeletableEntity {
  *     nullable: true
  *     $ref: "#/components/schemas/Currency"
  *   amount:
- *     description: The amount in the smallest currecny unit (e.g. cents 100 cents to charge $1) that the Product Variant will cost.
+ *     description: The amount in the smallest currency unit (e.g. cents 100 cents to charge $1) that the Product Variant will cost.
  *     type: integer
  *     example: 100
+ *   compare_at_price:
+ *      description: The amount in the smallest currency unit (e.g. cents 100 cents to charge $1) that the Product Variant will normally cost.
+ *      type: integer
+ *      example: 100
+ *
  *   min_quantity:
  *     description: The minimum quantity that the Money Amount applies to. If this value is not set, the Money Amount applies to all quantities.
  *     nullable: true

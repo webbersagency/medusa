@@ -25,6 +25,7 @@ function useCurrencyMeta(
 }
 
 type CurrencyCellProps = {
+  listId: string
   currencyCode?: string
   region?: string
 
@@ -51,6 +52,7 @@ type CurrencyCellProps = {
 
   onMouseCellClick: (
     event: React.MouseEvent,
+    listId: string,
     variantId: string,
     currencyCode?: string,
     regionId?: string
@@ -76,6 +78,7 @@ const currencySpan = forwardRef((props, ref) => (
  */
 function CurrencyCell(props: CurrencyCellProps) {
   const {
+    listId,
     variant,
     currencyCode,
     region,
@@ -171,7 +174,7 @@ function CurrencyCell(props: CurrencyCellProps) {
       event.preventDefault()
     }
 
-    props.onMouseCellClick(event, variant.id, currencyCode, region)
+    props.onMouseCellClick(event, listId, variant.id, currencyCode, region)
 
     if (event.detail === 2) {
       // Unformat value for edit

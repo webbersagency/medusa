@@ -376,6 +376,7 @@ function EditPricesTable(props: EditPricesTableProps) {
 
   const onMouseCellClick = (
     event: React.MouseEvent,
+    listId: string,
     variantId: string,
     currencyCode?: string,
     regionId?: string
@@ -395,7 +396,7 @@ function EditPricesTable(props: EditPricesTableProps) {
     startIndexCol = anchorIndexCol
     endIndexCol = anchorIndexCol
 
-    setSelectedCells({ [getKey(variantId, currencyCode || regionId)]: true })
+    setSelectedCells({ [listId]: true })
     setIsDrag(true)
   }
 
@@ -444,6 +445,11 @@ function EditPricesTable(props: EditPricesTableProps) {
         if (ma) {
           nextState[getKey(variant.id, c)] =
             ma.amount / Math.pow(10, currencyMetadata.decimal_digits)
+          if (ma?.compare_at_price) {
+            nextState[`compare-at-price-${getKey(variant.id, c)}`] =
+              ma.compare_at_price /
+              Math.pow(10, currencyMetadata.decimal_digits)
+          }
         }
       })
 
@@ -456,6 +462,10 @@ function EditPricesTable(props: EditPricesTableProps) {
           const currencyMetadata = CURRENCY_MAP[ma.currency_code.toUpperCase()]
           nextState[getKey(variant.id, undefined, r)] =
             ma.amount / Math.pow(10, currencyMetadata.decimal_digits)
+          if (ma?.compare_at_price) {
+            nextState[`compare-at-price-${getKey(variant.id, undefined, r)}`] =
+              ma.amount / Math.pow(10, currencyMetadata.decimal_digits)
+          }
         }
       })
     })
@@ -689,19 +699,34 @@ function EditPricesTable(props: EditPricesTableProps) {
             {props.currencies.map((c) => {
               const currency = storeCurrencies?.find((sc) => sc.code === c)
               return (
-                <th
-                  key={c}
-                  className="min-w-[220px] border px-4 font-medium text-gray-400"
-                >
-                  <div className="flex items-center justify-between">
-                    <span>Price {c.toUpperCase()}</span>
-                    {currency?.includes_tax && (
-                      <Tooltip content="Tax inclusive pricing" side="bottom">
-                        <IconBuildingTax strokeWidth={1.3} size={20} />
-                      </Tooltip>
-                    )}
-                  </div>
-                </th>
+                <>
+                  <th
+                    key={`compare-at-price-${c}`}
+                    className="min-w-[220px] border px-4 font-medium text-gray-400"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>Compare at Price {c.toUpperCase()}</span>
+                      {currency?.includes_tax && (
+                        <Tooltip content="Tax inclusive pricing" side="bottom">
+                          <IconBuildingTax strokeWidth={1.3} size={20} />
+                        </Tooltip>
+                      )}
+                    </div>
+                  </th>
+                  <th
+                    key={c}
+                    className="min-w-[220px] border px-4 font-medium text-gray-400"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>Price {c.toUpperCase()}</span>
+                      {currency?.includes_tax && (
+                        <Tooltip content="Tax inclusive pricing" side="bottom">
+                          <IconBuildingTax strokeWidth={1.3} size={20} />
+                        </Tooltip>
+                      )}
+                    </div>
+                  </th>
+                </>
               )
             })}
             {props.regions.map((r) => {
@@ -710,24 +735,44 @@ function EditPricesTable(props: EditPricesTableProps) {
                 return null
               }
               return (
-                <th
-                  key={r}
-                  className="min-w-[220px] max-w-[220px]  border px-4 font-medium text-gray-400"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex overflow-hidden">
-                      <span title={region?.name} className="truncate pr-1">
-                        Price {region?.name}
+                <>
+                  <th
+                    key={`compare-at-price-${r}`}
+                    className="min-w-[220px] max-w-[220px]  border px-4 font-medium text-gray-400"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="flex overflow-hidden">
+                        <span title={region?.name} className="truncate pr-1">
+                          Compare at Price {region?.name}
+                        </span>
+                        ({region?.currency_code.toUpperCase()})
                       </span>
-                      ({region?.currency_code.toUpperCase()})
-                    </span>
-                    {region.includes_tax && (
-                      <Tooltip content="Tax inclusive pricing" side="bottom">
-                        <IconBuildingTax strokeWidth={1.3} size={20} />
-                      </Tooltip>
-                    )}
-                  </div>
-                </th>
+                      {region.includes_tax && (
+                        <Tooltip content="Tax inclusive pricing" side="bottom">
+                          <IconBuildingTax strokeWidth={1.3} size={20} />
+                        </Tooltip>
+                      )}
+                    </div>
+                  </th>
+                  <th
+                    key={r}
+                    className="min-w-[220px] max-w-[220px]  border px-4 font-medium text-gray-400"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="flex overflow-hidden">
+                        <span title={region?.name} className="truncate pr-1">
+                          Price {region?.name}
+                        </span>
+                        ({region?.currency_code.toUpperCase()})
+                      </span>
+                      {region.includes_tax && (
+                        <Tooltip content="Tax inclusive pricing" side="bottom">
+                          <IconBuildingTax strokeWidth={1.3} size={20} />
+                        </Tooltip>
+                      )}
+                    </div>
+                  </th>
+                </>
               )
             })}
           </tr>
@@ -749,14 +794,30 @@ function EditPricesTable(props: EditPricesTableProps) {
               </div>
             </td>
             {props.currencies.map((c) => (
-              <td className="border pr-4 text-right" key={c}>
-                -
-              </td>
+              <>
+                <td
+                  className="border pr-4 text-right"
+                  key={`compare-at-price-${c}`}
+                >
+                  -
+                </td>
+                <td className="border pr-4 text-right" key={c}>
+                  -
+                </td>
+              </>
             ))}
             {props.regions.map((r) => (
-              <td className="border pr-4 text-right" key={r}>
-                -
-              </td>
+              <>
+                <td
+                  className="border pr-4 text-right"
+                  key={`compare-at-price-${r}`}
+                >
+                  -
+                </td>
+                <td className="border pr-4 text-right" key={r}>
+                  -
+                </td>
+              </>
             ))}
           </tr>
 
@@ -773,60 +834,136 @@ function EditPricesTable(props: EditPricesTableProps) {
 
                 {props.currencies.map((c, indexCol) => {
                   return (
-                    <CurrencyCell
-                      key={variant.id + c}
-                      currencyCode={c}
-                      variant={variant}
-                      isSelected={selectedCells[getKey(variant.id, c)]}
-                      editedAmount={editedPrices[getKey(variant.id, c)]}
-                      onInputChange={onInputChange}
-                      onMouseCellClick={onMouseCellClick}
-                      onDragFillStart={onDragFillStart}
-                      onColumnOver={onColumnOver}
-                      isAnchor={
-                        anchorIndex === index && anchorIndexCol === indexCol
-                      }
-                      isRangeStart={startIndex === index}
-                      isRangeEnd={index === endIndex}
-                      isInRange={index >= startIndex && index <= endIndex}
-                      isRangeStartCol={startIndexCol === indexCol}
-                      isRangeEndCol={indexCol === endIndexCol}
-                      isInRangeCol={
-                        indexCol >= startIndexCol && indexCol <= endIndexCol
-                      }
-                    />
+                    <>
+                      <CurrencyCell
+                        key={`compare-at-price-${variant.id + c}`}
+                        listId={`compare-at-price-${variant.id + c}`}
+                        currencyCode={c}
+                        variant={variant}
+                        isSelected={
+                          selectedCells[
+                            `compare-at-price-${getKey(variant.id, c)}`
+                          ]
+                        }
+                        editedAmount={
+                          editedPrices[
+                            `compare-at-price-${getKey(variant.id, c)}`
+                          ]
+                        }
+                        onInputChange={onInputChange}
+                        onMouseCellClick={onMouseCellClick}
+                        onDragFillStart={onDragFillStart}
+                        onColumnOver={onColumnOver}
+                        isAnchor={
+                          anchorIndex === index && anchorIndexCol === indexCol
+                        }
+                        isRangeStart={startIndex === index}
+                        isRangeEnd={index === endIndex}
+                        isInRange={index >= startIndex && index <= endIndex}
+                        isRangeStartCol={startIndexCol === indexCol}
+                        isRangeEndCol={indexCol === endIndexCol}
+                        isInRangeCol={
+                          indexCol >= startIndexCol && indexCol <= endIndexCol
+                        }
+                      />
+                      <CurrencyCell
+                        key={variant.id + c}
+                        listId={getKey(variant.id, c)}
+                        currencyCode={c}
+                        variant={variant}
+                        isSelected={selectedCells[getKey(variant.id, c)]}
+                        editedAmount={editedPrices[getKey(variant.id, c)]}
+                        onInputChange={onInputChange}
+                        onMouseCellClick={onMouseCellClick}
+                        onDragFillStart={onDragFillStart}
+                        onColumnOver={onColumnOver}
+                        isAnchor={
+                          anchorIndex === index && anchorIndexCol === indexCol
+                        }
+                        isRangeStart={startIndex === index}
+                        isRangeEnd={index === endIndex}
+                        isInRange={index >= startIndex && index <= endIndex}
+                        isRangeStartCol={startIndexCol === indexCol}
+                        isRangeEndCol={indexCol === endIndexCol}
+                        isInRangeCol={
+                          indexCol >= startIndexCol && indexCol <= endIndexCol
+                        }
+                      />
+                    </>
                   )
                 })}
 
                 {props.regions.map((r, indexCol) => {
                   indexCol = props.currencies.length + indexCol
                   return (
-                    <CurrencyCell
-                      key={variant.id + r}
-                      region={r!}
-                      variant={variant}
-                      isSelected={
-                        selectedCells[getKey(variant.id, undefined, r)]
-                      }
-                      editedAmount={
-                        editedPrices[getKey(variant.id, undefined, r)]
-                      }
-                      onInputChange={onInputChange}
-                      onMouseCellClick={onMouseCellClick}
-                      onDragFillStart={onDragFillStart}
-                      onColumnOver={onColumnOver}
-                      isAnchor={
-                        anchorIndex === index && anchorIndexCol === indexCol
-                      }
-                      isRangeStart={startIndex === index}
-                      isRangeEnd={index === endIndex}
-                      isInRange={index >= startIndex && index <= endIndex}
-                      isRangeStartCol={startIndexCol === indexCol}
-                      isRangeEndCol={indexCol === endIndexCol}
-                      isInRangeCol={
-                        indexCol >= startIndexCol && indexCol <= endIndexCol
-                      }
-                    />
+                    <>
+                      <CurrencyCell
+                        key={`compare-at-price-${variant.id + r}`}
+                        listId={`compare-at-price-${variant.id + r}`}
+                        region={r!}
+                        variant={variant}
+                        isSelected={
+                          selectedCells[
+                            `compare-at-price-${getKey(
+                              variant.id,
+                              undefined,
+                              r
+                            )}`
+                          ]
+                        }
+                        editedAmount={
+                          editedPrices[
+                            `compare-at-price-${getKey(
+                              variant.id,
+                              undefined,
+                              r
+                            )}`
+                          ]
+                        }
+                        onInputChange={onInputChange}
+                        onMouseCellClick={onMouseCellClick}
+                        onDragFillStart={onDragFillStart}
+                        onColumnOver={onColumnOver}
+                        isAnchor={
+                          anchorIndex === index && anchorIndexCol === indexCol
+                        }
+                        isRangeStart={startIndex === index}
+                        isRangeEnd={index === endIndex}
+                        isInRange={index >= startIndex && index <= endIndex}
+                        isRangeStartCol={startIndexCol === indexCol}
+                        isRangeEndCol={indexCol === endIndexCol}
+                        isInRangeCol={
+                          indexCol >= startIndexCol && indexCol <= endIndexCol
+                        }
+                      />
+                      <CurrencyCell
+                        key={variant.id + r}
+                        listId={getKey(variant.id, undefined, r)}
+                        region={r!}
+                        variant={variant}
+                        isSelected={
+                          selectedCells[getKey(variant.id, undefined, r)]
+                        }
+                        editedAmount={
+                          editedPrices[getKey(variant.id, undefined, r)]
+                        }
+                        onInputChange={onInputChange}
+                        onMouseCellClick={onMouseCellClick}
+                        onDragFillStart={onDragFillStart}
+                        onColumnOver={onColumnOver}
+                        isAnchor={
+                          anchorIndex === index && anchorIndexCol === indexCol
+                        }
+                        isRangeStart={startIndex === index}
+                        isRangeEnd={index === endIndex}
+                        isInRange={index >= startIndex && index <= endIndex}
+                        isRangeStartCol={startIndexCol === indexCol}
+                        isRangeEndCol={indexCol === endIndexCol}
+                        isInRangeCol={
+                          indexCol >= startIndexCol && indexCol <= endIndexCol
+                        }
+                      />
+                    </>
                   )
                 })}
               </tr>

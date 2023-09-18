@@ -25,9 +25,13 @@ export interface MoneyAmount {
    */
   currency?: Currency | null
   /**
-   * The amount in the smallest currecny unit (e.g. cents 100 cents to charge $1) that the Product Variant will cost.
+   * The amount in the smallest currency unit (e.g. cents 100 cents to charge $1) that the Product Variant will cost.
    */
   amount: number
+  /**
+   * The amount in the smallest currency unit (e.g. cents 100 cents to charge $1) that the Product Variant will normally cost.
+   */
+  compare_at_price?: number
   /**
    * The minimum quantity that the Money Amount applies to. If this value is not set, the Money Amount applies to all quantities.
    */
