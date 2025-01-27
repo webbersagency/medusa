@@ -350,7 +350,7 @@ export function OrderCreateFulfillmentForm({
                             form={form}
                             item={item}
                             locationId={selectedLocationId}
-                            disabled={isShippingProfileMatching}
+                            disabled={!isShippingProfileMatching}
                             itemReservedQuantitiesMap={
                               itemReservedQuantitiesMap
                             }
