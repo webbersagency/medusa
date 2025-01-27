@@ -318,7 +318,7 @@ export function OrderCreateFulfillmentForm({
 
                   {differentOptionSelected && (
                     <Alert className="mt-4 p-4" variant="warning">
-                      <span className="-mt-[3px] block font-semibold">
+                      <span className="-mt-[3px] block font-medium">
                         {t("labels.beaware")}
                       </span>
                       <span className="text-ui-fg-muted">
