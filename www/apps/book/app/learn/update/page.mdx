@@ -108,3 +108,13 @@ In the Medusa codebase, our team uses the following [TSDoc](https://tsdoc.org/) 
 
 - `@deprecated`: Indicates that a piece of code is deprecated and will be removed in a future version. The tag's message will include details on what to use instead. However, our updates are always backward-compatible, allowing you to update your codebase at your own pace.
 - `@version`: Indicates the version when a piece of code was available from. A piece of code that has this tag will only be available starting from the specified version.
+
+---
+
+## Update Plugin Project
+
+If you have a Medusa plugin project, you only need to update its `@medusajs/*` dependencies in the `package.json` file to the latest version. Then, re-install dependencies:
+
+```bash npm2yarn
+npm run install
+```
