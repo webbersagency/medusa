@@ -1639,15 +1639,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@medusajs/icons@npm:~2.0.0":
-  version: 2.0.7
-  resolution: "@medusajs/icons@npm:2.0.7"
-  peerDependencies:
-    react: ^16.x || ^17.x || ^18.x
-  checksum: 84d9d0c8fe2fb3174e286291a86292f80a71a1582b4e8bcba001bcf061a8a4b7654c88bc80c69aee6fd68961e618011e059641c92174eba413e380e148a7ea52
-  languageName: node
-  linkType: hard
-
 "@medusajs/icons@npm:~2.4.0":
   version: 2.4.0
   resolution: "@medusajs/icons@npm:2.4.0"
@@ -5867,7 +5858,7 @@ __metadata:
   dependencies:
     "@mdx-js/loader": ^3.1.0
     "@mdx-js/react": ^3.1.0
-    "@medusajs/icons": ~2.0.0
+    "@medusajs/icons": ~2.4.0
     "@next/mdx": 15.0.4
     "@types/mdx": ^2.0.13
     "@types/node": ^20
@@ -13512,7 +13503,7 @@ __metadata:
   dependencies:
     "@mdx-js/loader": ^3.1.0
     "@mdx-js/react": ^3.1.0
-    "@medusajs/icons": ~2.0.0
+    "@medusajs/icons": ~2.4.0
     "@next/bundle-analyzer": ^15.1.1
     "@next/mdx": 15.0.4
     "@types/mdx": ^2.0.13
@@ -14942,7 +14933,7 @@ turbo@latest:
   version: 0.0.0-use.local
   resolution: "types@workspace:packages/types"
   dependencies:
-    "@medusajs/icons": ~2.0.0
+    "@medusajs/icons": ~2.4.0
     "@types/node": ^20.11.20
     rimraf: ^5.0.5
     tsconfig: "*"
@@ -15408,7 +15399,7 @@ turbo@latest:
   dependencies:
     "@mdx-js/loader": ^3.1.0
     "@mdx-js/react": ^3.1.0
-    "@medusajs/icons": ~2.0.0
+    "@medusajs/icons": ~2.4.0
     "@next/mdx": 15.0.4
     "@types/mdx": ^2.0.13
     "@types/node": ^20
