@@ -34,6 +34,7 @@ import {
   UpdateRefundReasonDTO,
   CreateAccountHolderDTO,
   UpsertPaymentCollectionDTO,
+  CreatePaymentMethodDTO,
 } from "./mutations"
 import { WebhookActionResult } from "./provider"
 
@@ -877,6 +878,78 @@ export interface IPaymentModuleService extends IModuleService {
     config: FindConfig<PaymentMethodDTO>,
     sharedContext?: Context
   ): Promise<[PaymentMethodDTO[], number]>
+
+  /**
+   * This method creates payment methods.
+   *
+   * @param {CreatePaymentMethodDTO[]} data - The payment methods to create.
+   * @param {Context} sharedContext - A context used to share resources, such as transaction manager, between the application and the module.
+   * @returns {Promise<PaymentMethodDTO[]>} The created payment methods.
+   *
+   * @example
+   * const paymentMethods =
+   *   await paymentModuleService.createPaymentMethods([
+   *     {
+   *       provider_id: "pp_stripe_stripe",
+   *       data: {
+   *         customer_id: "cus_123",
+   *       },
+   *       context: {
+   *         accountHolder: {
+   *           data: {
+   *             id: "acc_holder_123",
+   *           },
+   *         },
+   *       },
+   *     },
+   *     {
+   *       provider_id: "pp_stripe_stripe",
+   *       data: {
+   *         customer_id: "cus_123",
+   *       },
+   *       context: {
+   *         accountHolder: {
+   *           data: {
+   *             id: "acc_holder_123",
+   *           },
+   *         },
+   *       },
+   *     },
+   *   ])
+   */
+  createPaymentMethods(
+    data: CreatePaymentMethodDTO[],
+    sharedContext?: Context
+  ): Promise<PaymentMethodDTO[]>
+
+  /**
+   * This method creates a payment method.
+   *
+   * @param {CreatePaymentMethodDTO} data - The payment method to create.
+   * @param {Context} sharedContext - A context used to share resources, such as transaction manager, between the application and the module.
+   * @returns {Promise<PaymentMethodDTO>} The created payment method.
+   *
+   * @example
+   * const paymentMethod =
+   *   await paymentModuleService.createPaymentMethods({
+   *     provider_id: "pp_stripe_stripe",
+   *     data: {
+   *       customer_id: "cus_123",
+   *     },
+   *     context: {
+   *       accountHolder: {
+   *           data: {
+   *             id: "acc_holder_123",
+   *           },
+   *         },
+   *       },
+   *     },
+   *   })
+   */
+  createPaymentMethods(
+    data: CreatePaymentMethodDTO,
+    sharedContext?: Context
+  ): Promise<PaymentMethodDTO>
 
   /**
    * This method retrieves a paginated list of captures based on optional filters and configuration.
