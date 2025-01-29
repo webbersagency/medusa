@@ -24,11 +24,7 @@ export const LayoutProvider = ({
   const [showCollapsedNavbar, setShowCollapsedNavbar] = useState(false)
 
   useResizeObserver(mainContentRef as React.RefObject<HTMLDivElement>, () => {
-    if (disableResizeObserver) {
-      setShowCollapsedNavbar(false)
-      return
-    }
-    if (window.innerWidth < 992) {
+    if (disableResizeObserver || window.innerWidth < 992) {
       setShowCollapsedNavbar(false)
       return
     }

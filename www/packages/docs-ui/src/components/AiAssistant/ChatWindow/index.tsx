@@ -152,7 +152,8 @@ export const AiAssistantChatWindow = () => {
           "shadow-elevation-modal dark:shadow-elevation-modal-dark",
           "bg-medusa-bg-base rounded-docs_DEFAULT overflow-x-hidden",
           "flex-col justify-between m-docs_0.25 max-w-ai-assistant",
-          chatOpened && ["!right-0"]
+          chatOpened && ["!right-0"],
+          !chatOpened && ["!fixed"]
         )}
         style={{
           height,
