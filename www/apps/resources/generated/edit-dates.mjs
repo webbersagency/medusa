@@ -2115,10 +2115,10 @@ export const generatedEditDates = {
   "app/commerce-modules/cart/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.593Z",
   "app/commerce-modules/customer/extend/page.mdx": "2024-12-25T15:54:37.789Z",
   "app/commerce-modules/fulfillment/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.593Z",
-  "app/commerce-modules/inventory/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.600Z",
+  "app/commerce-modules/inventory/links-to-other-modules/page.mdx": "2025-02-03T12:37:33.622Z",
   "app/commerce-modules/pricing/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.607Z",
   "app/commerce-modules/product/extend/page.mdx": "2024-12-11T09:07:25.252Z",
-  "app/commerce-modules/product/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.606Z",
+  "app/commerce-modules/product/links-to-other-modules/page.mdx": "2025-02-03T12:37:18.919Z",
   "app/commerce-modules/promotion/extend/page.mdx": "2024-12-11T09:07:24.137Z",
   "app/commerce-modules/promotion/links-to-other-modules/page.mdx": "2025-01-06T11:19:35.608Z",
   "app/commerce-modules/order/edit/page.mdx": "2024-10-09T08:50:05.334Z",
@@ -5902,5 +5902,6 @@ export const generatedEditDates = {
   "references/types/HttpTypes/interfaces/types.HttpTypes.StoreProductTypeResponse/page.mdx": "2025-01-27T11:43:54.212Z",
   "references/types/interfaces/types.BaseProductTypeListParams/page.mdx": "2025-01-27T11:43:54.550Z",
   "references/core_flows/Order/Steps_Order/variables/core_flows.Order.Steps_Order.updateOrderChangesStepId/page.mdx": "2025-01-27T11:43:49.278Z",
-  "app/troubleshooting/test-errors/page.mdx": "2025-01-31T13:08:42.639Z"
+  "app/troubleshooting/test-errors/page.mdx": "2025-01-31T13:08:42.639Z",
+  "app/commerce-modules/product/variant-inventory/page.mdx": "2025-02-03T12:19:45.706Z"
 }

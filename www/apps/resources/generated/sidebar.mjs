@@ -4626,6 +4626,8 @@ export const generatedSidebar = [
             "type": "category",
             "title": "Concepts",
             "initialOpen": false,
+            "autogenerate_tags": "concept+inventory",
+            "autogenerate_as_ref": true,
             "children": [
               {
                 "loaded": true,
@@ -4657,6 +4659,14 @@ export const generatedSidebar = [
                 "type": "link",
                 "path": "/commerce-modules/inventory/links-to-other-modules",
                 "title": "Links to Modules",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "ref",
+                "title": "Product Variant Inventory",
+                "path": "/commerce-modules/product/variant-inventory",
                 "children": []
               }
             ]
@@ -6645,14 +6655,6 @@ export const generatedSidebar = [
                         "type": "ref",
                         "title": "updateOrderChangesStep",
                         "path": "/references/medusa-workflows/steps/updateOrderChangesStep",
-                        "children": []
-                      },
-                      {
-                        "loaded": true,
-                        "isPathHref": true,
-                        "type": "ref",
-                        "title": "updateOrderExchangesStep",
-                        "path": "/references/medusa-workflows/steps/updateOrderExchangesStep",
                         "children": []
                       },
                       {
@@ -10342,6 +10344,14 @@ export const generatedSidebar = [
                 "loaded": true,
                 "isPathHref": true,
                 "type": "link",
+                "path": "/commerce-modules/product/variant-inventory",
+                "title": "Variant Inventory",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "link",
                 "path": "/commerce-modules/product/links-to-other-modules",
                 "title": "Links to Other Modules",
                 "children": []
@@ -13200,6 +13210,8 @@ export const generatedSidebar = [
             "type": "category",
             "title": "Concepts",
             "initialOpen": false,
+            "autogenerate_tags": "concept+salesChannel",
+            "autogenerate_as_ref": true,
             "children": [
               {
                 "loaded": true,
@@ -13215,6 +13227,14 @@ export const generatedSidebar = [
                 "type": "link",
                 "path": "/commerce-modules/sales-channel/links-to-other-modules",
                 "title": "Links to Modules",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "ref",
+                "title": "Product Variant Inventory",
+                "path": "/commerce-modules/product/variant-inventory",
                 "children": []
               }
             ]
@@ -13640,6 +13660,8 @@ export const generatedSidebar = [
             "type": "category",
             "title": "Concepts",
             "initialOpen": false,
+            "autogenerate_tags": "concept+stockLocation",
+            "autogenerate_as_ref": true,
             "children": [
               {
                 "loaded": true,
@@ -13655,6 +13677,22 @@ export const generatedSidebar = [
                 "type": "link",
                 "path": "/commerce-modules/stock-location/links-to-other-modules",
                 "title": "Links to Modules",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "ref",
+                "title": "Inventory Kits",
+                "path": "/commerce-modules/inventory/inventory-kit",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "ref",
+                "title": "Product Variant Inventory",
+                "path": "/commerce-modules/product/variant-inventory",
                 "children": []
               }
             ]
