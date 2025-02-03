@@ -214,6 +214,11 @@ export const sidebar = sidebarAttachHrefCommonOptions([
             path: "/learn/fundamentals/module-links/custom-columns",
             title: "Custom Columns",
           },
+          {
+            type: "link",
+            path: "/learn/fundamentals/module-links/query-context",
+            title: "Query Context",
+          },
         ],
       },
       {

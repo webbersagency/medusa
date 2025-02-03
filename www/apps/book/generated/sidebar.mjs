@@ -368,6 +368,15 @@ export const generatedSidebar = [
             "title": "Custom Columns",
             "children": [],
             "chapterTitle": "3.3.4. Custom Columns"
+          },
+          {
+            "loaded": true,
+            "isPathHref": true,
+            "type": "link",
+            "path": "/learn/fundamentals/module-links/query-context",
+            "title": "Query Context",
+            "children": [],
+            "chapterTitle": "3.3.5. Query Context"
           }
         ],
         "chapterTitle": "3.3. Module Links"
