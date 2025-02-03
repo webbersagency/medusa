@@ -151,17 +151,20 @@ export default class PaymentModuleService
     return joinerConfig
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   createPaymentCollections(
     data: CreatePaymentCollectionDTO,
     sharedContext?: Context
   ): Promise<PaymentCollectionDTO>
 
+  // @ts-expect-error
   createPaymentCollections(
     data: CreatePaymentCollectionDTO[],
     sharedContext?: Context
   ): Promise<PaymentCollectionDTO[]>
   @InjectManager()
+
+  // @ts-expect-error
   async createPaymentCollections(
     data: CreatePaymentCollectionDTO | CreatePaymentCollectionDTO[],
     @MedusaContext() sharedContext?: Context
@@ -189,12 +192,13 @@ export default class PaymentModuleService
     return await this.paymentCollectionService_.create(data, sharedContext)
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   updatePaymentCollections(
     paymentCollectionId: string,
     data: PaymentCollectionUpdatableFields,
     sharedContext?: Context
   ): Promise<PaymentCollectionDTO>
+  // @ts-expect-error
   updatePaymentCollections(
     selector: FilterablePaymentCollectionProps,
     data: PaymentCollectionUpdatableFields,
@@ -202,6 +206,7 @@ export default class PaymentModuleService
   ): Promise<PaymentCollectionDTO[]>
 
   @InjectManager()
+  // @ts-expect-error
   async updatePaymentCollections(
     idOrSelector: string | FilterablePaymentCollectionProps,
     data: PaymentCollectionUpdatableFields,
