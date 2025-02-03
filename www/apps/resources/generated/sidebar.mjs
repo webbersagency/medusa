@@ -1210,7 +1210,7 @@ export const generatedSidebar = [
                 "loaded": true,
                 "isPathHref": true,
                 "type": "ref",
-                "title": "Checkout Step 2: Enter Address",
+                "title": "Checkout Step 2: Set Address",
                 "path": "/storefront-development/checkout/address",
                 "children": []
               },
@@ -16329,7 +16329,7 @@ export const generatedSidebar = [
             "isPathHref": true,
             "type": "link",
             "path": "/storefront-development/checkout/address",
-            "title": "2. Enter Address",
+            "title": "2. Set Address",
             "children": []
           },
           {

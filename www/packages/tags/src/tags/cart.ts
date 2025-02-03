@@ -20,7 +20,7 @@ export const cart = [
     "path": "/storefront-development/cart/update"
   },
   {
-    "title": "Checkout Step 2: Enter Address",
+    "title": "Checkout Step 2: Set Address",
     "path": "/storefront-development/checkout/address"
   },
   {

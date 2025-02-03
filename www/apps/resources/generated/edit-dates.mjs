@@ -142,7 +142,7 @@ export const generatedEditDates = {
   "app/storefront-development/cart/retrieve/page.mdx": "2025-01-06T15:58:13.885Z",
   "app/storefront-development/cart/update/page.mdx": "2025-01-06T16:01:33.752Z",
   "app/storefront-development/cart/page.mdx": "2024-06-11T11:56:37+03:00",
-  "app/storefront-development/checkout/address/page.mdx": "2025-01-06T16:02:20.872Z",
+  "app/storefront-development/checkout/address/page.mdx": "2025-02-03T16:32:02.682Z",
   "app/storefront-development/checkout/complete-cart/page.mdx": "2024-12-19T16:30:41.019Z",
   "app/storefront-development/checkout/email/page.mdx": "2024-12-19T16:30:40.122Z",
   "app/storefront-development/checkout/payment/stripe/page.mdx": "2024-12-19T16:30:39.173Z",
