@@ -233,7 +233,7 @@ export const generatedEditDates = {
   "references/core_flows/core_flows.Order/page.mdx": "2024-12-23T12:30:24.071Z",
   "references/modules/core_flows/page.mdx": "2025-01-27T11:43:48.472Z",
   "references/types/types.HttpTypes/page.mdx": "2025-01-27T11:43:53.717Z",
-  "app/troubleshooting/medusa-admin/no-widget-route/page.mdx": "2024-08-23T11:31:26.346Z",
+  "app/troubleshooting/medusa-admin/no-widget-route/page.mdx": "2025-02-03T12:42:43.932Z",
   "references/auth/IAuthModuleService/methods/auth.IAuthModuleService.createProviderIdentities/page.mdx": "2024-12-09T13:21:36.285Z",
   "references/auth/IAuthModuleService/methods/auth.IAuthModuleService.deleteProviderIdentities/page.mdx": "2024-12-09T13:21:36.293Z",
   "references/auth/IAuthModuleService/methods/auth.IAuthModuleService.listProviderIdentities/page.mdx": "2024-12-09T13:21:36.277Z",
