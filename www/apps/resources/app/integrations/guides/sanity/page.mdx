@@ -711,7 +711,7 @@ export const syncStep = createStep(
     while (hasMore) {
       const {
         data: products,
-        metadata: { count },
+        metadata: { count } = {},
       } = await query.graph({
         entity: "product",
         fields: [
