@@ -14,6 +14,10 @@ export interface UnistNode extends Node {
     type?: string
   }[]
   children?: UnistNode[]
+  ordered?: boolean
+  url?: string
+  spread?: boolean
+  depth?: number
 }
 
 export type ArrayExpression = {

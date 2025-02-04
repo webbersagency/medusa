@@ -1,4 +1,4 @@
-import { ExpressionJsVarLiteral, ExpressionJsVarObj } from "../types/index.js"
+import { ExpressionJsVarLiteral, ExpressionJsVarObj } from "types"
 
 export function isExpressionJsVarLiteral(
   expression: unknown

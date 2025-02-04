@@ -7,7 +7,7 @@ import {
   ExpressionJsVarLiteral,
   LiteralExpression,
   ObjectExpression,
-} from "../types/index.js"
+} from "types"
 
 export function estreeToJs(estree: Estree) {
   // TODO improve on this utility. Currently it's implemented to work
