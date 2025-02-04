@@ -120,7 +120,7 @@ export type AbstractModuleService<
     TModelName
   >}`]: (
     id: string,
-    config?: FindConfig<any>,
+    config?: FindConfig<TModelsDtoConfig[TModelName]["dto"]>,
     sharedContext?: Context
   ) => Promise<TModelsDtoConfig[TModelName]["dto"]>
 } & {
@@ -129,7 +129,7 @@ export type AbstractModuleService<
     TModelName
   >}`]: (
     filters?: any,
-    config?: FindConfig<any>,
+    config?: FindConfig<TModelsDtoConfig[TModelName]["dto"]>,
     sharedContext?: Context
   ) => Promise<TModelsDtoConfig[TModelName]["dto"][]>
 } & {
@@ -137,9 +137,11 @@ export type AbstractModuleService<
     TModelsDtoConfig,
     TModelName
   >}`]: {
-    (filters?: any, config?: FindConfig<any>, sharedContext?: Context): Promise<
-      [TModelsDtoConfig[TModelName]["dto"][], number]
-    >
+    (
+      filters?: any,
+      config?: FindConfig<TModelsDtoConfig[TModelName]["dto"]>,
+      sharedContext?: Context
+    ): Promise<[TModelsDtoConfig[TModelName]["dto"][], number]>
   }
 } & {
   [TModelName in keyof TModelsDtoConfig as `delete${ExtractPluralName<
