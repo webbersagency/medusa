@@ -81,7 +81,8 @@ export const apiRefLlmsGenerator: CustomLlmsGenerator<
 
     Object.entries(fileYaml).forEach(
       ([httpMethod, operation]: [string, any]) => {
-        const hash = `${slugify(operation.tags[0])}_${slugify(operation.operationId)}`
+        const hash =
+          `${slugify(operation.tags[0])}_${slugify(operation.operationId)}`.toLowerCase()
 
         content += `- [${httpMethod.toUpperCase()} ${oasPath}](${options?.baseUrl}#${hash})\n`
       }

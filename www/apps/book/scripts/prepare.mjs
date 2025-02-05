@@ -8,6 +8,7 @@ import {
 } from "build-scripts"
 import {
   addUrlToRelativeLink,
+  changeLinksToHtmlMdPlugin,
   crossProjectLinksPlugin,
   localLinksRehypePlugin,
 } from "remark-rehype-plugins"
@@ -19,34 +20,38 @@ async function main() {
   })
   const baseUrl =
     process.env.NEXT_PUBLIC_PROD_BASE_URL || process.env.NEXT_PUBLIC_BASE_URL
+  const plugins = {
+    before: [
+      [
+        crossProjectLinksPlugin,
+        {
+          baseUrl,
+          projectUrls: {
+            resources: {
+              url: baseUrl,
+            },
+            "user-guide": {
+              url: baseUrl,
+            },
+            ui: {
+              url: baseUrl,
+            },
+            api: {
+              url: baseUrl,
+            },
+          },
+          useBaseUrl: true,
+        },
+      ],
+      [localLinksRehypePlugin],
+    ],
+    after: [[addUrlToRelativeLink, { url: baseUrl }]],
+  }
   await generateLlmsFull({
     outputPath: path.join(process.cwd(), "public", "llms-full.txt"),
     plugins: {
-      before: [
-        [
-          crossProjectLinksPlugin,
-          {
-            baseUrl,
-            projectUrls: {
-              resources: {
-                url: baseUrl,
-              },
-              "user-guide": {
-                url: baseUrl,
-              },
-              ui: {
-                url: baseUrl,
-              },
-              api: {
-                url: baseUrl,
-              },
-            },
-            useBaseUrl: true,
-          },
-        ],
-        [localLinksRehypePlugin],
-      ],
-      after: [[addUrlToRelativeLink, { url: baseUrl }]],
+      ...plugins,
+      after: [...plugins.after, [changeLinksToHtmlMdPlugin]],
     },
     scanDirs: [
       {
@@ -208,6 +213,9 @@ async function main() {
             type: "Admin",
           },
         },
+        options: {
+          plugins,
+        },
       },
       {
         dir: path.join(
@@ -225,6 +233,9 @@ async function main() {
             baseUrl: `${baseUrl}/api/store`,
             type: "Store",
           },
+        },
+        options: {
+          plugins,
         },
       },
     ],

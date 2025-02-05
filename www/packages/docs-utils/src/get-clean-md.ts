@@ -145,22 +145,6 @@ const removeFrontmatterPlugin = (): Transformer => {
   }
 }
 
-const changeLinksPlugin = (): Transformer => {
-  return async (tree) => {
-    const { visit } = await import("unist-util-visit")
-
-    visit(tree as UnistTree, ["link"], (node: UnistNode) => {
-      if (
-        node.type === "link" &&
-        node.url?.startsWith("https://docs.medusajs.com") &&
-        !node.url.endsWith("index.html.md")
-      ) {
-        node.url += `/index.html.md`
-      }
-    })
-  }
-}
-
 const getParsedAsString = (file: VFile): string => {
   let content = file.toString().replaceAll(/^([\s]*)\* /gm, "$1- ")
   const frontmatter = file.data.matter as FrontMatter | undefined
@@ -213,8 +197,6 @@ export const getCleanMd = async ({
   plugins?.after?.forEach((plugin) => {
     unifier.use(...(Array.isArray(plugin) ? plugin : [plugin]))
   })
-
-  unifier.use(changeLinksPlugin)
 
   const content = type === "file" ? await read(file) : file
   const parsed = await unifier.process(content)
