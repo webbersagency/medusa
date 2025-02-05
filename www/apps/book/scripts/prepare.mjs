@@ -238,6 +238,26 @@ async function main() {
           plugins,
         },
       },
+      {
+        dir: path.join(process.cwd(), "..", "ui", "src", "content", "docs"),
+        options: {
+          parserOptions: {
+            ComponentExample: {
+              examplesBasePath: path.join(
+                process.cwd(),
+                "..",
+                "ui",
+                "src",
+                "examples"
+              ),
+            },
+            ComponentReference: {
+              specsPath: path.join(process.cwd(), "..", "ui", "src", "specs"),
+            },
+          },
+        },
+        allowedFilesPatterns: [/^(?!.*\/(colors|icons|hooks)\/).*$/],
+      },
     ],
   })
 }
