@@ -1,14 +1,14 @@
 import { clx } from "@medusajs/ui"
 import { PropsWithChildren } from "react"
 
-type StatusCellProps = PropsWithChildren<{
+type DataTableStatusCellProps = PropsWithChildren<{
   color?: "green" | "red" | "blue" | "orange" | "grey" | "purple"
 }>
 
-/**
- * @deprecated Use the new DataTable and DataTableStatusCell instead
- */
-export const StatusCell = ({ color, children }: StatusCellProps) => {
+export const DataTableStatusCell = ({
+  color,
+  children,
+}: DataTableStatusCellProps) => {
   return (
     <div className="txt-compact-small text-ui-fg-subtle flex h-full w-full items-center gap-x-2 overflow-hidden">
       <div

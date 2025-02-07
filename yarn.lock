@@ -5294,7 +5294,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/admin-vite-plugin@2.4.0, @medusajs/admin-vite-plugin@workspace:packages/admin/admin-vite-plugin":
+"@medusajs/admin-vite-plugin@2.4.0, @medusajs/admin-vite-plugin@workspace:packages/admin/admin-vite-plugin, @medusajs/admin-vite-plugin@~2.4.0":
   version: 0.0.0-use.local
   resolution: "@medusajs/admin-vite-plugin@workspace:packages/admin/admin-vite-plugin"
   dependencies:
@@ -5605,12 +5605,12 @@ __metadata:
     "@hookform/error-message": ^2.0.1
     "@hookform/resolvers": 3.4.2
     "@medusajs/admin-shared": ~2.4.0
-    "@medusajs/admin-vite-plugin": 2.4.0
-    "@medusajs/icons": 2.4.0
-    "@medusajs/js-sdk": 2.4.0
-    "@medusajs/types": 2.4.0
-    "@medusajs/ui": 4.0.4
-    "@medusajs/ui-preset": 2.4.0
+    "@medusajs/admin-vite-plugin": ~2.4.0
+    "@medusajs/icons": ~2.4.0
+    "@medusajs/js-sdk": ~2.4.0
+    "@medusajs/types": ~2.4.0
+    "@medusajs/ui": ~4.0.4
+    "@medusajs/ui-preset": ~2.4.0
     "@tanstack/react-query": 5.64.2
     "@tanstack/react-table": 8.20.5
     "@tanstack/react-virtual": ^3.8.3
@@ -5848,7 +5848,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/icons@2.4.0, @medusajs/icons@workspace:packages/design-system/icons, @medusajs/icons@~2.4.0":
+"@medusajs/icons@workspace:packages/design-system/icons, @medusajs/icons@~2.4.0":
   version: 0.0.0-use.local
   resolution: "@medusajs/icons@workspace:packages/design-system/icons"
   dependencies:
@@ -5934,7 +5934,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/js-sdk@2.4.0, @medusajs/js-sdk@workspace:packages/core/js-sdk":
+"@medusajs/js-sdk@workspace:packages/core/js-sdk, @medusajs/js-sdk@~2.4.0":
   version: 0.0.0-use.local
   resolution: "@medusajs/js-sdk@workspace:packages/core/js-sdk"
   dependencies:
@@ -6631,7 +6631,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/types@2.4.0, @medusajs/types@workspace:^, @medusajs/types@workspace:packages/core/types, @medusajs/types@~2.4.0":
+"@medusajs/types@workspace:^, @medusajs/types@workspace:packages/core/types, @medusajs/types@~2.4.0":
   version: 0.0.0-use.local
   resolution: "@medusajs/types@workspace:packages/core/types"
   dependencies:
@@ -6654,7 +6654,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/ui-preset@2.4.0, @medusajs/ui-preset@workspace:packages/design-system/ui-preset, @medusajs/ui-preset@~2.4.0":
+"@medusajs/ui-preset@workspace:packages/design-system/ui-preset, @medusajs/ui-preset@~2.4.0":
   version: 0.0.0-use.local
   resolution: "@medusajs/ui-preset@workspace:packages/design-system/ui-preset"
   dependencies:
@@ -6669,7 +6669,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@medusajs/ui@4.0.4, @medusajs/ui@workspace:packages/design-system/ui":
+"@medusajs/ui@workspace:packages/design-system/ui, @medusajs/ui@~4.0.4":
   version: 0.0.0-use.local
   resolution: "@medusajs/ui@workspace:packages/design-system/ui"
   dependencies:
