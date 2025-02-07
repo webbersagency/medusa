@@ -10,9 +10,18 @@ In this document, you’ll learn how to create a Payment Provider to be used wit
 
 ---
 
-## 1. Create Module Directory
+## 1. Create Module Provider Directory
 
-Start by creating a new directory for your module. For example, `src/modules/my-payment`.
+Start by creating a new directory for your module provider.
+
+If you're creating the module provider in a Medusa application, create it under the `src/modules` directory. For example, `src/modules/my-payment`.
+If you're creating the module provider in a plugin, create it under the `src/providers` directory. For example, `src/providers/my-payment`.
+
+<Note>
+
+The rest of this guide always uses the `src/modules/my-payment` directory as an example.
+
+</Note>
 
 ---
 
@@ -742,6 +751,7 @@ module.exports = defineConfig({
       options: {
         providers: [
           {
+            // if module provider is in a plugin, use `plugin-name/providers/my-payment`
             resolve: "./src/modules/my-payment",
             id: "my-payment",
             options: {
