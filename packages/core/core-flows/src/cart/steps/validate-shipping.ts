@@ -1,3 +1,4 @@
+import { MedusaError } from "@medusajs/framework/utils"
 import {
   CartLineItemDTO,
   CartWorkflowDTO,
@@ -5,8 +6,6 @@ import {
   ShippingOptionDTO,
 } from "@medusajs/types"
 import { createStep, StepResponse } from "@medusajs/workflows-sdk"
-
-import { MedusaError } from "../../../../utils/dist/common"
 
 /**
  * The data to validate shipping data when cart is completed.
@@ -46,7 +45,7 @@ export const validateShippingStepId = "validate-shipping"
  * or [useQueryGraphStep](https://docs.medusajs.com/resources/references/medusa-workflows/steps/useQueryGraphStep).
  *
  * :::
- * 
+ *
  * @example
  * validateShippingStep({
  *   cart: {
