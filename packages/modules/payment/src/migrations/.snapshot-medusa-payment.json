@@ -209,7 +209,9 @@
             "awaiting",
             "authorized",
             "partially_authorized",
-            "canceled"
+            "canceled",
+            "failed",
+            "completed"
           ],
           "mappedType": "enum"
         },
