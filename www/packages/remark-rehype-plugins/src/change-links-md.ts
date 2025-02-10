@@ -9,7 +9,9 @@ export const changeLinksToHtmlMdPlugin = (): Transformer => {
       if (
         node.type === "link" &&
         node.url?.startsWith("https://docs.medusajs.com") &&
-        !node.url.endsWith("index.html.md")
+        !node.url.endsWith("index.html.md") &&
+        !node.url.includes("/api/store") &&
+        !node.url.includes("/api/admin")
       ) {
         node.url += `/index.html.md`
       }
