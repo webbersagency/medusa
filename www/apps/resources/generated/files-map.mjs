@@ -432,6 +432,10 @@ export const filesMap = [
     "pathname": "/commerce-modules"
   },
   {
+    "filePath": "/www/apps/resources/app/commerce-modules/payment/account-holder/page.mdx",
+    "pathname": "/commerce-modules/payment/account-holder"
+  },
+  {
     "filePath": "/www/apps/resources/app/commerce-modules/payment/events/page.mdx",
     "pathname": "/commerce-modules/payment/events"
   },

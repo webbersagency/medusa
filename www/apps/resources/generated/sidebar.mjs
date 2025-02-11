@@ -8373,6 +8373,14 @@ export const generatedSidebar = [
                 "loaded": true,
                 "isPathHref": true,
                 "type": "link",
+                "path": "/commerce-modules/payment/account-holder",
+                "title": "Account Holder",
+                "children": []
+              },
+              {
+                "loaded": true,
+                "isPathHref": true,
+                "type": "link",
                 "path": "/commerce-modules/payment/webhook-events",
                 "title": "Webhook Events",
                 "children": []
