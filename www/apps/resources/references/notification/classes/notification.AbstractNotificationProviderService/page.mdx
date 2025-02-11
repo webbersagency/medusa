@@ -87,6 +87,19 @@ class MyNotificationProviderService extends AbstractNotificationProviderService 
 export default MyNotificationProviderService
 ```
 
+### identifier
+
+Each notification provider has a unique ID used to identify it.
+
+#### Example
+
+```ts
+class MyNotificationProviderService extends AbstractNotificationProviderService {
+  static identifier = "my-notification"
+  // ...
+}
+```
+
 ### validateOptions
 
 This method validates the options of the provider set in `medusa-config.ts`.
