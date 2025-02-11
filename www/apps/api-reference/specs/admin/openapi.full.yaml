@@ -44212,6 +44212,10 @@ components:
           type: string
           title: id
           description: The product's ID.
+        shipping_profile_id:
+          type: string
+          title: shipping_profile_id
+          description: The ID of the product's shipping profile.
       required:
         - id
     AdminBatchUpdateProductVariant:
@@ -45103,6 +45107,7 @@ components:
       x-schemaName: AdminCreateProduct
       required:
         - title
+        - shipping_profile_id
         - options
       properties:
         title:
@@ -45250,6 +45255,10 @@ components:
           type: string
           title: external_id
           description: The ID of the product in an external or third-party system.
+        shipping_profile_id:
+          type: string
+          title: shipping_profile_id
+          description: The ID of the product's shipping profile.
     AdminCreateProductCategory:
       type: object
       description: The product category's details.
@@ -51343,6 +51352,8 @@ components:
           format: date-time
           title: deleted_at
           description: The date the product was deleted.
+        shipping_profile:
+          $ref: '#/components/schemas/AdminShippingProfile'
     AdminProductCategory:
       type: object
       description: The product category's details.
@@ -54160,6 +54171,9 @@ components:
             metadata:
               type: object
               description: The address's metadata, can hold custom key-value pairs.
+        metadata:
+          type: object
+          description: The order's metadata, can hold custom key-value pairs.
     AdminUpdatePriceList:
       type: object
       description: the details to update in a price list.
@@ -62343,9 +62357,6 @@ components:
           title: provider_id
           description: The ID of the payment provider the customer chose.
           example: pp_stripe_stripe
-        context:
-          type: object
-          description: The payment's context, such as the customer or address details. If the customer is logged-in, the customer `id` is set in the context under a `customer.id` property.
         data:
           type: object
           description: Any data necessary for the payment provider to process the payment.
