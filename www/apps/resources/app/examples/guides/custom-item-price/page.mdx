@@ -227,11 +227,11 @@ export default class MetalPricesModuleService {
 
     return fetch(`https://www.goldapi.io/api/${upperCaseSymbol}/${upperCaseCurrency}`, {
       headers: {
-        'x-access-token': this.options_.accessToken,
-        "Content-Type": "application/json"
+        "x-access-token": this.options_.accessToken,
+        "Content-Type": "application/json",
       },
-      redirect: "follow"
-    }).then(response => response.json())
+      redirect: "follow",
+    }).then((response) => response.json())
     .then((response) => {
       if (response.error) {
         throw new MedusaError(
@@ -286,13 +286,13 @@ So, create the file `src/modules/metal-prices/index.ts` with the following conte
 ![The directory structure of the Metal Prices Module after adding the definition file.](https://res.cloudinary.com/dza7lstvk/image/upload/v1738248049/Medusa%20Resources/custom-item-price-3_imtbuw.jpg)
 
 ```ts title="src/modules/metal-prices/index.ts"
-import { Module } from "@medusajs/framework/utils";
-import MetalPricesModuleService from "./service";
+import { Module } from "@medusajs/framework/utils"
+import MetalPricesModuleService from "./service"
 
 export const METAL_PRICES_MODULE = "metal-prices"
 
 export default Module(METAL_PRICES_MODULE, {
-  service: MetalPricesModuleService
+  service: MetalPricesModuleService,
 })
 ```
 
@@ -315,8 +315,8 @@ module.exports = defineConfig({
       resolve: "./src/modules/metal-prices",
       options: {
         accessToken: process.env.GOLD_API_TOKEN,
-        sandbox: process.env.GOLD_API_SANDBOX === "true"
-      }
+        sandbox: process.env.GOLD_API_SANDBOX === "true",
+      },
     },
   ],
 })
@@ -409,10 +409,10 @@ To create the step, create the file `src/workflows/steps/get-variant-metal-price
 ![The directory structure after adding the step file.](https://res.cloudinary.com/dza7lstvk/image/upload/v1738249036/Medusa%20Resources/custom-item-price-4_kumzdc.jpg)
 
 ```ts title="src/workflows/steps/get-variant-metal-prices.ts"
-import { createStep } from "@medusajs/framework/workflows-sdk";
+import { createStep } from "@medusajs/framework/workflows-sdk"
 import { ProductVariantDTO } from "@medusajs/framework/types"
-import { METAL_PRICES_MODULE } from "../../modules/metal-prices";
-import MetalPricesModuleService from "../../modules/metal-prices/service";
+import { METAL_PRICES_MODULE } from "../../modules/metal-prices"
+import MetalPricesModuleService from "../../modules/metal-prices/service"
 
 export type GetVariantMetalPricesStepInput = {
   variant: ProductVariantDTO & {
@@ -429,7 +429,7 @@ export const getVariantMetalPricesStep = createStep(
   async ({
     variant,
     currencyCode,
-    quantity = 1
+    quantity = 1,
   }: GetVariantMetalPricesStepInput, { container }) => {
     const metalPricesModuleService: MetalPricesModuleService = 
       container.resolve(METAL_PRICES_MODULE)
@@ -546,19 +546,19 @@ export const addCustomToCartWorkflow = createWorkflow(
         "*",
         "options.*",
         "options.option.*",
-        "calculated_price.*"
+        "calculated_price.*",
       ],
       filters: {
-        id: item.variant_id
+        id: item.variant_id,
       },
       options: {
-        throwIfKeyNotFound: true
+        throwIfKeyNotFound: true,
       },
       context: {
         calculated_price: QueryContext({
-          currency_code: carts[0].currency_code
-        })
-      }
+          currency_code: carts[0].currency_code,
+        }),
+      },
     }).config({ name: "retrieve-variant" })
 
     // TODO add more steps
@@ -580,7 +580,7 @@ Next, you'll retrieve the variant's real-time price using the `getVariantMetalPr
 ```ts title="src/workflows/add-custom-to-cart.ts"
 import { 
   getVariantMetalPricesStep, 
-  GetVariantMetalPricesStepInput
+  GetVariantMetalPricesStepInput,
 } from "./steps/get-variant-metal-prices"
 ```
 
@@ -590,7 +590,7 @@ Then, replace the `TODO` in the workflow with the following:
 const price = getVariantMetalPricesStep({
   variant: variants[0],
   currencyCode: carts[0].currency_code,
-  quantity: item.quantity
+  quantity: item.quantity,
 } as unknown as GetVariantMetalPricesStepInput)
 
 // TODO add item with custom price to cart
@@ -610,19 +610,19 @@ Then, replace the `TODO` in the workflow with the following:
 ```ts title="src/workflows/add-custom-to-cart.ts"
 const itemToAdd = transform({
   item,
-  price
+  price,
 }, (data) => {
   return [{
     ...data.item,
-    unit_price: data.price
+    unit_price: data.price,
   }]
 })
 
 addToCartWorkflow.runAsStep({
   input: {
     items: itemToAdd,
-    cart_id
-  }
+    cart_id,
+  },
 })
 
 // TODO retrieve and return cart
@@ -653,7 +653,7 @@ const { data: updatedCarts } = useQueryGraphStep({
 }).config({ name: "refetch-cart" })
 
 return new WorkflowResponse({
-  cart: updatedCarts[0]
+  cart: updatedCarts[0],
 })
 ```
 
@@ -699,8 +699,8 @@ export const POST = async (
     .run({
       input: {
         cart_id: id,
-        item
-      }
+        item,
+      },
     })
 
   res.status(200).json({ cart: result.cart })
@@ -740,7 +740,7 @@ import {
   validateAndTransformBody,
 } from "@medusajs/framework/http"
 import { 
-  StoreAddCartLineItem
+  StoreAddCartLineItem,
 } from "@medusajs/medusa/api/store/carts/validators"
 
 export default defineMiddlewares({
@@ -750,10 +750,10 @@ export default defineMiddlewares({
       method: "POST",
       middlewares: [
         validateAndTransformBody(
-          StoreAddCartLineItem,
-        )
-      ]
-    }
+          StoreAddCartLineItem
+        ),
+      ],
+    },
   ],
 })
 ```

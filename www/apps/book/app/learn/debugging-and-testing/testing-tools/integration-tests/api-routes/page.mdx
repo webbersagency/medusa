@@ -337,10 +337,10 @@ medusaIntegrationTestRunner({
               {
                 type: "publishable",
                 title: "Test Key",
-                created_by: ""
-              }
-            ]
-          }
+                created_by: "",
+              },
+            ],
+          },
         })).result[0]
       })
       describe("GET /custom", () => {
@@ -349,8 +349,8 @@ medusaIntegrationTestRunner({
             `/store/custom`,
             {
               headers: {
-                "x-publishable-api-key": pak.token
-              }
+                "x-publishable-api-key": pak.token,
+              },
             }
           )
   
@@ -421,13 +421,13 @@ medusaIntegrationTestRunner({
                 provider: "emailpass",
                 entity_id: "admin@medusa.js",
                 provider_metadata: {
-                  password: "supersecret"
-                }
-              }
+                  password: "supersecret",
+                },
+              },
             ],
             app_metadata: {
-              user_id: user.id
-            }
+              user_id: user.id,
+            },
           })
   
           const token = jwt.sign(
@@ -503,13 +503,13 @@ medusaIntegrationTestRunner({
                 provider: "emailpass",
                 entity_id: "customer@medusa.js",
                 provider_metadata: {
-                  password: "supersecret"
-                }
-              }
+                  password: "supersecret",
+                },
+              },
             ],
             app_metadata: {
-              user_id: customer.id
-            }
+              user_id: customer.id,
+            },
           })
   
           const token = jwt.sign(
@@ -533,10 +533,10 @@ medusaIntegrationTestRunner({
                 {
                   type: "publishable",
                   title: "Test Key",
-                  created_by: ""
-                }
-              ]
-            }
+                  created_by: "",
+                },
+              ],
+            },
           })).result[0]
 
           headers["x-publishable-api-key"] = pak.token

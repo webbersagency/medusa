@@ -33,7 +33,7 @@ const { data } = await query.graph({
   fields: ["*"],
   context: QueryContext({
     lang: "es",
-  })
+  }),
 })
 ```
 
@@ -58,7 +58,7 @@ import Author from "./models/author"
 
 class BlogModuleService extends MedusaService({
   Post,
-  Author
+  Author,
 }){
   // @ts-ignore
   async listPosts(
@@ -125,8 +125,8 @@ const { data } = await query.graph({
     lang: "es",
     author: QueryContext({
       lang: "es",
-    })
-  })
+    }),
+  }),
 })
 ```
 
@@ -144,7 +144,7 @@ import Author from "./models/author"
 
 class BlogModuleService extends MedusaService({
   Post,
-  Author
+  Author,
 }){
   // @ts-ignore
   async listPosts(
@@ -168,7 +168,7 @@ class BlogModuleService extends MedusaService({
           author: {
             ...post.author,
             name: isAuthorLangEs ? post.author.name + " en español" : post.author.name,
-          }
+          },
         }
       })
     }
@@ -201,8 +201,8 @@ const { data } = await query.graph({
   context: {
     post: QueryContext({
       lang: "es",
-    })
-  }
+    }),
+  },
 })
 ```
 
