@@ -30,8 +30,8 @@
     "@types/node": "^20.10.4",
     "tsup": "8.0.1",
     "typescript": "5.3.3",
-    "vite": "^5.2.11",
-    "vitest": "^2.1.9"
+    "vite": "^5.4.14",
+    "vitest": "^3.0.5"
   },
   "peerDependencies": {
     "vite": "^5.0.0"
