@@ -198,7 +198,6 @@ medusaIntegrationTestRunner({
       expect(updatedResults.length).toBe(1)
       expect(updatedResults[0].variants.length).toBe(1)
 
-      /*
       let staledRaws = await dbConnection.raw(
         'SELECT * FROM "index_data" WHERE "staled_at" IS NOT NULL'
       )
@@ -209,7 +208,6 @@ medusaIntegrationTestRunner({
         'SELECT * FROM "index_relation" WHERE "staled_at" IS NOT NULL'
       )
       expect(staledRaws.rows.length).toBe(0)
-      */
     })
   },
 })

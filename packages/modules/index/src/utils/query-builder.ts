@@ -1,5 +1,10 @@
 import { IndexTypes } from "@medusajs/framework/types"
-import { GraphQLUtils, isObject, isString } from "@medusajs/framework/utils"
+import {
+  GraphQLUtils,
+  isObject,
+  isPresent,
+  isString,
+} from "@medusajs/framework/utils"
 import { Knex } from "@mikro-orm/knex"
 import { OrderBy, QueryFormat, QueryOptions, Select } from "@types"
 
@@ -24,6 +29,10 @@ export class QueryBuilder {
   private readonly options?: QueryOptions
   private readonly schema: IndexTypes.SchemaObjectRepresentation
   private readonly allSchemaFields: Set<string>
+  private readonly rawConfig?: IndexTypes.IndexQueryConfig<any>
+  private readonly requestedFields: {
+    [key: string]: any
+  }
 
   constructor(args: {
     schema: IndexTypes.SchemaObjectRepresentation
@@ -31,6 +40,10 @@ export class QueryBuilder {
     knex: Knex
     selector: QueryFormat
     options?: QueryOptions
+    rawConfig?: IndexTypes.IndexQueryConfig<any>
+    requestedFields: {
+      [key: string]: any
+    }
   }) {
     this.schema = args.schema
     this.entityMap = args.entityMap
@@ -41,6 +54,8 @@ export class QueryBuilder {
     this.allSchemaFields = new Set(
       Object.values(this.schema).flatMap((entity) => entity.fields ?? [])
     )
+    this.rawConfig = args.rawConfig
+    this.requestedFields = args.requestedFields
   }
 
   private getStructureKeys(structure) {
@@ -56,7 +71,9 @@ export class QueryBuilder {
         return
       }
 
-      throw new Error(`Could not find entity for path: ${path}`)
+      throw new Error(
+        `Could not find entity for path: ${path}. It might not be indexed.`
+      )
     }
 
     return this.schema._schemaPropertiesMap[path]
@@ -66,7 +83,7 @@ export class QueryBuilder {
     const entity = this.getEntity(path)?.ref?.entity!
     const fieldRef = this.entityMap[entity]._fields[field]
     if (!fieldRef) {
-      throw new Error(`Field ${field} not found in the entityMap.`)
+      throw new Error(`Field ${field} is not indexed.`)
     }
 
     let currentType = fieldRef.type
@@ -224,6 +241,8 @@ export class QueryBuilder {
             const val = operator === "IN" ? subValue : [subValue]
             if (operator === "=" && subValue === null) {
               operator = "IS"
+            } else if (operator === "!=" && subValue === null) {
+              operator = "IS NOT"
             }
 
             if (operator === "=") {
@@ -306,13 +325,16 @@ export class QueryBuilder {
 
     const isSelectableField = this.allSchemaFields.has(parentProperty)
     const entities = this.getEntity(currentAliasPath, false)
-    if (isSelectableField || !entities) {
+    const entityRef = entities?.ref!
+
+    // !entityRef.alias means the object has not table, it's a nested object
+    if (isSelectableField || !entities || !entityRef?.alias) {
       // We are currently selecting a specific field of the parent entity or the entity is not found on the index schema
       // We don't need to build the query parts for this as there is no join
       return []
     }
 
-    const mainEntity = entities.ref.entity
+    const mainEntity = entityRef.entity
     const mainAlias =
       this.getShortAlias(aliasMapping, mainEntity.toLowerCase()) + level
 
@@ -530,10 +552,18 @@ export class QueryBuilder {
     return result
   }
 
-  public buildQuery(countAllResults = true, returnIdOnly = false): string {
+  public buildQuery({
+    hasPagination = true,
+    hasCount = false,
+    returnIdOnly = false,
+  }: {
+    hasPagination?: boolean
+    hasCount?: boolean
+    returnIdOnly?: boolean
+  }): [string, string | null] {
     const queryBuilder = this.knex.queryBuilder()
 
-    const structure = this.structure
+    const structure = this.requestedFields
     const filter = this.selector.where ?? {}
 
     const { orderBy: order, skip, take } = this.options ?? {}
@@ -564,15 +594,6 @@ export class QueryBuilder {
       ? this.buildSelectParts(rootStructure, rootKey, aliasMapping)
       : { [rootKey + ".id"]: `${rootAlias}.id` }
 
-    if (countAllResults) {
-      selectParts["offset_"] = this.knex.raw(
-        `DENSE_RANK() OVER (ORDER BY ${this.getShortAlias(
-          aliasMapping,
-          rootEntity
-        )}.id)`
-      )
-    }
-
     queryBuilder.select(selectParts)
 
     queryBuilder.from(
@@ -601,23 +622,149 @@ export class QueryBuilder {
       )
     }
 
-    let sql = `WITH data AS (${queryBuilder.toQuery()})
-    SELECT * ${
-      countAllResults ? ", (SELECT max(offset_) FROM data) AS count" : ""
-    }
-    FROM data`
+    let distinctQueryBuilder = queryBuilder.clone()
 
     let take_ = !isNaN(+take!) ? +take! : 15
     let skip_ = !isNaN(+skip!) ? +skip! : 0
-    if (typeof take === "number" || typeof skip === "number") {
-      sql += `
-        WHERE offset_ > ${skip_}
-          AND offset_ <= ${skip_ + take_}
-      `
+    let sql = ""
+
+    if (hasPagination) {
+      const idColumn = `${this.getShortAlias(aliasMapping, rootEntity)}.id`
+      distinctQueryBuilder.clearSelect()
+      distinctQueryBuilder.select(
+        this.knex.raw(`DISTINCT ON (${idColumn}) ${idColumn} as "id"`)
+      )
+      distinctQueryBuilder.limit(take_)
+      distinctQueryBuilder.offset(skip_)
+
+      sql += `WITH paginated_data AS (${distinctQueryBuilder.toQuery()}),`
+
+      queryBuilder.andWhere(
+        this.knex.raw(`${idColumn} IN (SELECT id FROM "paginated_data")`)
+      )
     }
 
-    return sql
+    sql += `${hasPagination ? " " : "WITH"} data AS (${queryBuilder.toQuery()})
+    SELECT * 
+    FROM data`
+
+    let sqlCount = ""
+    if (hasCount) {
+      sqlCount = this.buildQueryCount()
+    }
+
+    return [sql, hasCount ? sqlCount : null]
   }
+
+  public buildQueryCount(): string {
+    const queryBuilder = this.knex.queryBuilder()
+
+    const hasWhere = isPresent(this.rawConfig?.filters)
+    const structure = hasWhere ? this.rawConfig?.filters! : this.requestedFields
+
+    const rootKey = this.getStructureKeys(structure)[0]
+
+    const rootStructure = structure[rootKey] as Select
+
+    const entity = this.getEntity(rootKey)!.ref.entity
+    const rootEntity = entity.toLowerCase()
+    const aliasMapping: { [path: string]: string } = {}
+
+    const joinParts = this.buildQueryParts(
+      rootStructure,
+      "",
+      entity,
+      rootKey,
+      [],
+      0,
+      aliasMapping
+    )
+
+    const rootAlias = aliasMapping[rootKey]
+
+    queryBuilder.select(
+      this.knex.raw(`COUNT(DISTINCT ${rootAlias}.id) as count`)
+    )
+
+    queryBuilder.from(
+      `cat_${rootEntity} AS ${this.getShortAlias(aliasMapping, rootEntity)}`
+    )
+
+    if (hasWhere) {
+      joinParts.forEach((joinPart) => {
+        queryBuilder.joinRaw(joinPart)
+      })
+
+      this.parseWhere(aliasMapping, this.selector.where!, queryBuilder)
+    }
+
+    return queryBuilder.toQuery()
+  }
+
+  // NOTE: We are keeping the bellow code for now as reference to alternative implementation for us. DO NOT REMOVE
+  // public buildQueryCount(): string {
+  //   const queryBuilder = this.knex.queryBuilder()
+
+  //   const hasWhere = isPresent(this.rawConfig?.filters)
+  //   const structure = hasWhere ? this.rawConfig?.filters! : this.structure
+
+  //   const rootKey = this.getStructureKeys(structure)[0]
+
+  //   const rootStructure = structure[rootKey] as Select
+
+  //   const entity = this.getEntity(rootKey)!.ref.entity
+  //   const rootEntity = entity.toLowerCase()
+  //   const aliasMapping: { [path: string]: string } = {}
+
+  //   const joinParts = this.buildQueryParts(
+  //     rootStructure,
+  //     "",
+  //     entity,
+  //     rootKey,
+  //     [],
+  //     0,
+  //     aliasMapping
+  //   )
+
+  //   const rootAlias = aliasMapping[rootKey]
+
+  //   queryBuilder.select(this.knex.raw(`COUNT(${rootAlias}.id) as count`))
+
+  //   queryBuilder.from(
+  //     `cat_${rootEntity} AS ${this.getShortAlias(aliasMapping, rootEntity)}`
+  //   )
+
+  //   const self = this
+  //   if (hasWhere && joinParts.length) {
+  //     const fromExistsRaw = joinParts.shift()!
+  //     const [joinPartsExists, fromExistsPart] =
+  //       fromExistsRaw.split(" left join ")
+  //     const [fromExists, whereExists] = fromExistsPart.split(" on ")
+  //     joinParts.unshift(joinPartsExists)
+
+  //     queryBuilder.whereExists(function () {
+  //       this.select(self.knex.raw(`1`))
+  //       this.from(self.knex.raw(`${fromExists}`))
+  //       this.joinRaw(joinParts.join("\n"))
+  //       if (hasWhere) {
+  //         self.parseWhere(aliasMapping, self.selector.where!, this)
+  //         this.whereRaw(self.knex.raw(whereExists))
+  //         return
+  //       }
+
+  //       this.whereRaw(self.knex.raw(whereExists))
+  //     })
+  //   } else {
+  //     queryBuilder.whereExists(function () {
+  //       this.select(self.knex.raw(`1`))
+  //       if (hasWhere) {
+  //         self.parseWhere(aliasMapping, self.selector.where!, this)
+  //       }
+  //     })
+  //   }
+
+  //   return queryBuilder.toQuery()
+  // }
 
   public buildObjectFromResultset(
     resultSet: Record<string, any>[]

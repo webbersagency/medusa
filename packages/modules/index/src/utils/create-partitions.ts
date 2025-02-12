@@ -1,6 +1,6 @@
+import { IndexTypes } from "@medusajs/framework/types"
 import { SqlEntityManager } from "@mikro-orm/postgresql"
 import { schemaObjectRepresentationPropertiesToOmit } from "@types"
-import { IndexTypes } from "@medusajs/framework/types"
 
 export async function createPartitions(
   schemaObjectRepresentation: IndexTypes.SchemaObjectRepresentation,
@@ -52,6 +52,10 @@ export async function createPartitions(
 
       part.push(
         `CREATE INDEX CONCURRENTLY IF NOT EXISTS "IDX_cat_${cName}_data_gin" ON ${activeSchema}cat_${cName} USING GIN ("data" jsonb_path_ops)`
+      )
+
+      part.push(
+        `CREATE INDEX CONCURRENTLY IF NOT EXISTS "IDX_cat_${cName}_id" ON ${activeSchema}cat_${cName} ("id")`
       )
 
       // create child id index on pivot partitions
