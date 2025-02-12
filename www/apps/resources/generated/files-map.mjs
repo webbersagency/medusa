@@ -1092,6 +1092,10 @@ export const filesMap = [
     "pathname": "/storefront-development/customers/third-party-login"
   },
   {
+    "filePath": "/www/apps/resources/app/storefront-development/guides/express-checkout/page.mdx",
+    "pathname": "/storefront-development/guides/express-checkout"
+  },
+  {
     "filePath": "/www/apps/resources/app/storefront-development/page.mdx",
     "pathname": "/storefront-development"
   },

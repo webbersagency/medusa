@@ -5756,6 +5756,7 @@ export const generatedEditDates = {
   "references/types/StockLocationTypes/interfaces/types.StockLocationTypes.FilterableStockLocationAddressProps/page.mdx": "2025-01-13T18:05:55.410Z",
   "references/types/StockLocationTypes/types/types.StockLocationTypes.UpdateStockLocationAddressInput/page.mdx": "2025-01-07T12:54:23.057Z",
   "references/types/StockLocationTypes/types/types.StockLocationTypes.UpsertStockLocationAddressInput/page.mdx": "2025-01-07T12:54:23.058Z",
+  "app/storefront-development/guides/express-checkout/page.mdx": "2025-02-12T07:21:55.821Z",
   "app/commerce-modules/inventory/inventory-kit/page.mdx": "2025-01-13T11:31:35.362Z",
   "app/commerce-modules/api-key/workflows/page.mdx": "2025-01-09T13:41:46.573Z",
   "app/commerce-modules/api-key/js-sdk/page.mdx": "2025-01-09T12:04:39.787Z",

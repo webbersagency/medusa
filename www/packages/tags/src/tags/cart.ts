@@ -48,6 +48,10 @@ export const cart = [
     "path": "/storefront-development/checkout/shipping"
   },
   {
+    "title": "Implement Express Checkout with Medusa",
+    "path": "/storefront-development/guides/express-checkout"
+  },
+  {
     "title": "addShippingMethodToCartStep",
     "path": "/references/medusa-workflows/steps/addShippingMethodToCartStep"
   },
