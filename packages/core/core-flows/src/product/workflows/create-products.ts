@@ -40,7 +40,12 @@ export interface ValidateProductInputStepInput {
   /**
    * The shipping profiles to validate.
    */
-  shippingProfiles: { id: string }[]
+  shippingProfiles: {
+    /**
+     * The shipping profile's ID.
+     */ 
+    id: string
+  }[]
 }
 
 const validateProductInputStepId = "validate-product-input"
@@ -168,6 +173,7 @@ export const createProductsWorkflowId = "create-products"
  *         ]
  *       }
  *     ],
+ *     shipping_profile_id: "sp_123",
  *     additional_data: {
  *       erp_id: "123"
  *     }
