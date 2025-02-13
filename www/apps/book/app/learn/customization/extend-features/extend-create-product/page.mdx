@@ -230,13 +230,14 @@ curl -X POST 'http://localhost:9000/admin/products' \
         "values": ["Default option value"]
       }
     ],
+    "shipping_profile_id": "{shipping_profile_id}",
     "additional_data": {
         "brand_id": "{brand_id}"
     }
 }'
 ```
 
-Make sure to replace `{token}` with the token you received from the previous request, and  `{brand_id}` with the ID of a brand in your application.
+Make sure to replace `{token}` with the token you received from the previous request, `shipping_profile_id` with the ID of a shipping profile in your application, and `{brand_id}` with the ID of a brand in your application.
 
 The request creates a product and returns it.
 
