@@ -8,7 +8,7 @@ import {
 import { ApiRoutesLoader } from "@medusajs/framework/http"
 import { Tracer } from "@medusajs/framework/telemetry"
 import type { SpanExporter } from "@opentelemetry/sdk-trace-node"
-import type { Instrumentation } from "@opentelemetry/instrumentation"
+import type { NodeSDKConfiguration } from "@opentelemetry/sdk-node"
 import { TransactionOrchestrator } from "@medusajs/framework/orchestration"
 
 const EXCLUDED_RESOURCES = [".vite", "virtual:"]
@@ -270,23 +270,33 @@ export function instrumentWorkflows() {
  * - @opentelemetry/instrumentation-pg
  * - @opentelemetry/instrumentation
  */
-export function registerOtel(options: {
-  serviceName: string
-  exporter: SpanExporter
-  instrument?: Partial<{
-    http: boolean
-    query: boolean
-    workflows: boolean
-    db: boolean
-  }>
-  instrumentations?: Instrumentation[]
-}) {
+export function registerOtel(
+  options: Partial<NodeSDKConfiguration> & {
+    serviceName: string
+    exporter?: SpanExporter
+    instrument?: Partial<{
+      http: boolean
+      query: boolean
+      workflows: boolean
+      db: boolean
+    }>
+  }
+) {
+  const {
+    exporter,
+    serviceName,
+    instrument,
+    instrumentations,
+    ...nodeSdkOptions
+  } = {
+    instrument: {},
+    instrumentations: [],
+    ...options,
+  }
+
   const { Resource } = require("@opentelemetry/resources")
   const { NodeSDK } = require("@opentelemetry/sdk-node")
   const { SimpleSpanProcessor } = require("@opentelemetry/sdk-trace-node")
-
-  const instrument = options.instrument || {}
-  const instrumentations = options.instrumentations || []
 
   if (instrument.db) {
     const { PgInstrumentation } = require("@opentelemetry/instrumentation-pg")
@@ -303,13 +313,12 @@ export function registerOtel(options: {
   }
 
   const sdk = new NodeSDK({
-    serviceName: options.serviceName,
-    resource: new Resource({
-      "service.name": options.serviceName,
-    }),
-    spanProcessor: new SimpleSpanProcessor(options.exporter),
+    serviceName,
+    resource: new Resource({ "service.name": serviceName }),
+    spanProcessor: new SimpleSpanProcessor(exporter),
+    ...nodeSdkOptions,
     instrumentations: instrumentations,
-  })
+  } satisfies Partial<NodeSDKConfiguration>)
 
   sdk.start()
   return sdk
