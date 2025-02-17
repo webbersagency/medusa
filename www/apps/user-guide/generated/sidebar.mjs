@@ -15,7 +15,6 @@ export const generatedSidebar = [
     "isPathHref": true,
     "type": "category",
     "title": "Tips",
-    "hasTitleStyling": true,
     "autogenerate_path": "/tips",
     "children": [
       {
@@ -51,90 +50,70 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/orders",
     "title": "Orders",
-    "hasTitleStyling": true,
-    "autogenerate_path": "/orders",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/orders/manage",
+        "title": "Overview",
+        "path": "/orders",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
         "title": "Manage Details",
-        "description": "",
+        "path": "/orders/manage",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/orders/payments",
         "title": "Manage Payments",
-        "description": "",
+        "path": "/orders/payments",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/orders/fulfillments",
         "title": "Manage Fulfillments",
-        "description": "",
+        "path": "/orders/fulfillments",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
+        "title": "Edit Order Items",
         "path": "/orders/edit",
-        "title": "Edit an Order’s Items",
-        "description": "",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/orders/drafts",
-        "title": "Manage Draft Orders",
-        "description": "",
-        "children": []
-      },
-      {
-        "loaded": true,
-        "isPathHref": true,
-        "type": "link",
-        "path": "/orders/returns",
         "title": "Manage Returns",
-        "description": "",
+        "path": "/orders/returns",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/orders/exchange",
         "title": "Manage Exchanges",
-        "description": "",
+        "path": "/orders/exchanges",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
+        "title": "Manage Claims",
         "path": "/orders/claims",
-        "title": "Manage Order's Claims",
-        "description": "",
-        "children": []
-      },
-      {
-        "loaded": true,
-        "isPathHref": true,
-        "type": "link",
-        "path": "/orders/export",
-        "title": "Export Orders",
-        "description": "",
         "children": []
       }
     ]
@@ -145,7 +124,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/products",
     "title": "Products",
-    "hasTitleStyling": true,
     "autogenerate_path": "/products",
     "children": [
       {
@@ -231,7 +209,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/inventory",
     "title": "Inventory",
-    "hasTitleStyling": true,
     "autogenerate_path": "/inventory",
     "children": [
       {
@@ -260,7 +237,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/customers",
     "title": "Customers",
-    "hasTitleStyling": true,
     "autogenerate_path": "/customers",
     "children": [
       {
@@ -289,7 +265,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/discounts",
     "title": "Discounts",
-    "hasTitleStyling": true,
     "autogenerate_path": "/discounts",
     "children": [
       {
@@ -318,7 +293,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/pricing",
     "title": "Pricing",
-    "hasTitleStyling": true,
     "autogenerate_path": "/pricing",
     "children": [
       {
@@ -347,7 +321,6 @@ export const generatedSidebar = [
     "type": "category",
     "path": "/settings",
     "title": "Settings",
-    "hasTitleStyling": true,
     "autogenerate_path": "/settings",
     "children": [
       {
