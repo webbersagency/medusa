@@ -76,6 +76,11 @@ export type PaymentProviderContext = {
    * The customer information from Medusa.
    */
   customer?: PaymentCustomerDTO
+
+  /**
+   * Idempotency key for the request, if the payment provider supports it. It will be ignored otherwise.
+   */
+  idempotency_key?: string
 }
 
 export type PaymentProviderInput = {

@@ -173,9 +173,9 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
 
     let sessionData
     try {
-      sessionData = (await this.stripe_.paymentIntents.create(
-        intentRequest
-      )) as unknown as Record<string, unknown>
+      sessionData = (await this.stripe_.paymentIntents.create(intentRequest, {
+        idempotencyKey: context?.idempotency_key,
+      })) as unknown as Record<string, unknown>
     } catch (e) {
       throw this.buildError(
         "An error occurred in InitiatePayment during the creation of the stripe payment intent",
@@ -198,6 +198,7 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
 
   async cancelPayment({
     data,
+    context,
   }: CancelPaymentInput): Promise<CancelPaymentOutput> {
     try {
       const id = data?.id as string
@@ -206,7 +207,9 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
         return { data: data }
       }
 
-      const res = await this.stripe_.paymentIntents.cancel(id)
+      const res = await this.stripe_.paymentIntents.cancel(id, {
+        idempotencyKey: context?.idempotency_key,
+      })
       return { data: res as unknown as Record<string, unknown> }
     } catch (error) {
       if (error.payment_intent?.status === ErrorIntentStatus.CANCELED) {
@@ -219,11 +222,14 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
 
   async capturePayment({
     data,
+    context,
   }: CapturePaymentInput): Promise<CapturePaymentOutput> {
     const id = data?.id as string
 
     try {
-      const intent = await this.stripe_.paymentIntents.capture(id)
+      const intent = await this.stripe_.paymentIntents.capture(id, {
+        idempotencyKey: context?.idempotency_key,
+      })
       return { data: intent as unknown as Record<string, unknown> }
     } catch (error) {
       if (error.code === ErrorCodes.PAYMENT_INTENT_UNEXPECTED_STATE) {
@@ -243,6 +249,7 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
   async refundPayment({
     amount,
     data,
+    context,
   }: RefundPaymentInput): Promise<RefundPaymentOutput> {
     const id = data?.id as string
     if (!id) {
@@ -254,10 +261,15 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
 
     try {
       const currencyCode = data?.currency as string
-      await this.stripe_.refunds.create({
-        amount: getSmallestUnit(amount, currencyCode),
-        payment_intent: id as string,
-      })
+      await this.stripe_.refunds.create(
+        {
+          amount: getSmallestUnit(amount, currencyCode),
+          payment_intent: id as string,
+        },
+        {
+          idempotencyKey: context?.idempotency_key,
+        }
+      )
     } catch (e) {
       throw this.buildError("An error occurred in refundPayment", e)
     }
@@ -284,6 +296,7 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
     data,
     currency_code,
     amount,
+    context,
   }: UpdatePaymentInput): Promise<UpdatePaymentOutput> {
     const amountNumeric = getSmallestUnit(amount, currency_code)
     if (isPresent(amount) && data?.amount === amountNumeric) {
@@ -292,9 +305,15 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
 
     try {
       const id = data?.id as string
-      const sessionData = (await this.stripe_.paymentIntents.update(id, {
-        amount: amountNumeric,
-      })) as unknown as Record<string, unknown>
+      const sessionData = (await this.stripe_.paymentIntents.update(
+        id,
+        {
+          amount: amountNumeric,
+        },
+        {
+          idempotencyKey: context?.idempotency_key,
+        }
+      )) as unknown as Record<string, unknown>
 
       return { data: sessionData }
     } catch (e) {
@@ -305,7 +324,7 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
   async createAccountHolder({
     context,
   }: CreateAccountHolderInput): Promise<CreateAccountHolderOutput> {
-    const { account_holder, customer } = context
+    const { account_holder, customer, idempotency_key } = context
 
     if (account_holder?.data?.id) {
       return { id: account_holder.data.id as string }
@@ -332,15 +351,20 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
       : undefined
 
     try {
-      const stripeCustomer = await this.stripe_.customers.create({
-        email: customer.email,
-        name:
-          customer.company_name ||
-          `${customer.first_name ?? ""} ${customer.last_name ?? ""}`.trim() ||
-          undefined,
-        phone: customer.phone as string | undefined,
-        ...shipping,
-      })
+      const stripeCustomer = await this.stripe_.customers.create(
+        {
+          email: customer.email,
+          name:
+            customer.company_name ||
+            `${customer.first_name ?? ""} ${customer.last_name ?? ""}`.trim() ||
+            undefined,
+          phone: customer.phone as string | undefined,
+          ...shipping,
+        },
+        {
+          idempotencyKey: idempotency_key,
+        }
+      )
 
       return {
         id: stripeCustomer.id,
@@ -412,10 +436,15 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
       )
     }
 
-    const resp = await this.stripe_.setupIntents.create({
-      customer: accountHolderId,
-      ...data,
-    })
+    const resp = await this.stripe_.setupIntents.create(
+      {
+        customer: accountHolderId,
+        ...data,
+      },
+      {
+        idempotencyKey: context?.idempotency_key,
+      }
+    )
 
     return { id: resp.id, data: resp as unknown as Record<string, unknown> }
   }
