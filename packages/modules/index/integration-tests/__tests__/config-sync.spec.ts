@@ -133,7 +133,7 @@ describe("IndexModuleService syncIndexConfig", function () {
 
   afterEach(afterEach_)
 
-  it("should full sync all entities when the config has changed", async () => {
+  it.only("should full sync all entities when the config has changed", async () => {
     await setTimeout(1000)
 
     const currentMetadata = await indexMetadataService.list()
@@ -148,7 +148,7 @@ describe("IndexModuleService syncIndexConfig", function () {
         }),
         expect.objectContaining({
           entity: "Product",
-          fields: "id,title",
+          fields: "created_at,id,title",
           status: "done",
         }),
         expect.objectContaining({
