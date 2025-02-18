@@ -211,26 +211,30 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/inventory",
     "title": "Inventory",
-    "autogenerate_path": "/inventory",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/inventory/inventory",
-        "title": "Manage Inventory",
-        "description": "",
+        "title": "Overview",
+        "path": "/inventory",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/inventory/reservations",
+        "title": "Manage Inventory",
+        "path": "/inventory/inventory",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
         "title": "Manage Reservations",
-        "description": "",
+        "path": "/inventory/reservations",
         "children": []
       }
     ]

@@ -123,9 +123,24 @@ export const sidebar = sidebarAttachHrefCommonOptions([
   },
   {
     type: "category",
-    path: "/inventory",
     title: "Inventory",
-    autogenerate_path: "/inventory",
+    children: [
+      {
+        type: "link",
+        title: "Overview",
+        path: "/inventory",
+      },
+      {
+        type: "link",
+        title: "Manage Inventory",
+        path: "/inventory/inventory",
+      },
+      {
+        type: "link",
+        title: "Manage Reservations",
+        path: "/inventory/reservations",
+      },
+    ],
   },
   {
     type: "category",
