@@ -220,6 +220,13 @@ export const ProductCreateForm = ({
         onKeyDown={(e) => {
           // We want to continue to the next tab on enter instead of saving as draft immediately
           if (e.key === "Enter") {
+            if (
+              e.target instanceof HTMLTextAreaElement &&
+              !(e.metaKey || e.ctrlKey)
+            ) {
+              return
+            }
+
             e.preventDefault()
 
             if (e.metaKey || e.ctrlKey) {
