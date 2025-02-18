@@ -243,26 +243,30 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/customers",
     "title": "Customers",
-    "autogenerate_path": "/customers",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/customers/manage",
-        "title": "Manage Customers",
-        "description": "",
+        "title": "Overview",
+        "path": "/customers",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
+        "title": "Manage Customers",
+        "path": "/customers/manage",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Manage Groups",
         "path": "/customers/groups",
-        "title": "Manage Customer Groups",
-        "description": "",
         "children": []
       }
     ]

@@ -144,9 +144,24 @@ export const sidebar = sidebarAttachHrefCommonOptions([
   },
   {
     type: "category",
-    path: "/customers",
     title: "Customers",
-    autogenerate_path: "/customers",
+    children: [
+      {
+        type: "link",
+        title: "Overview",
+        path: "/customers",
+      },
+      {
+        type: "link",
+        title: "Manage Customers",
+        path: "/customers/manage",
+      },
+      {
+        type: "link",
+        title: "Manage Groups",
+        path: "/customers/groups",
+      },
+    ],
   },
   {
     type: "category",
