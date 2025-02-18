@@ -122,64 +122,38 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/products",
     "title": "Products",
-    "autogenerate_path": "/products",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/products/manage",
-        "title": "Manage Products",
-        "description": "",
+        "title": "Overview",
+        "path": "/products",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/products/collections",
-        "title": "Manage Product Collections",
-        "description": "",
-        "children": []
-      },
-      {
-        "loaded": true,
-        "isPathHref": true,
-        "type": "link",
-        "path": "/products/categories",
-        "title": "Manage Product Categories",
-        "description": "",
-        "children": []
-      },
-      {
-        "loaded": true,
-        "isPathHref": true,
-        "type": "link",
-        "path": "/products/gift-cards",
-        "title": "Gift Cards",
-        "description": "",
+        "title": "Create Product",
+        "path": "/products/create",
         "children": [
           {
             "loaded": true,
             "isPathHref": true,
             "type": "link",
-            "path": "/products/gift-cards/product-gift-card",
-            "title": "Manage a Product Gift Card",
-            "description": "",
-            "children": [],
-            "sidebar_position": 1
+            "title": "Multi-Part Product",
+            "path": "/products/create/multi-part",
+            "children": []
           },
           {
             "loaded": true,
             "isPathHref": true,
             "type": "link",
-            "path": "/products/gift-cards/customer-gift-card",
-            "title": "Manage a Customer Gift Card",
-            "description": "",
-            "children": [],
-            "sidebar_position": 2
+            "title": "Bundle Product",
+            "path": "/products/create/bundle",
+            "children": []
           }
         ]
       },
@@ -187,18 +161,48 @@ export const generatedSidebar = [
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/products/import",
-        "title": "Import Products",
-        "description": "",
+        "title": "Edit Product",
+        "path": "/products/edit",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/products/export",
+        "title": "Manage Variants",
+        "path": "/proucts/variants",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Manage Collections",
+        "path": "/products/collections",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Categories",
+        "path": "/products/categories",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Import Products",
+        "path": "/products/import",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
         "title": "Export Products",
-        "description": "",
+        "path": "/products/export",
         "children": []
       }
     ]
