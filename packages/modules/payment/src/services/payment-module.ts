@@ -36,6 +36,8 @@ import {
   WebhookActionResult,
   CreateAccountHolderOutput,
   InitiatePaymentOutput,
+  UpdateAccountHolderDTO,
+  UpdateAccountHolderOutput,
 } from "@medusajs/framework/types"
 import {
   BigNumber,
@@ -1023,6 +1025,45 @@ export default class PaymentModuleService
         sharedContext
       )
     }
+
+    return await this.baseRepository_.serialize(accountHolder)
+  }
+
+  @InjectManager()
+  async updateAccountHolder(
+    input: UpdateAccountHolderDTO,
+    @MedusaContext() sharedContext?: Context
+  ): Promise<AccountHolderDTO> {
+    if (!input.context?.account_holder) {
+      throw new MedusaError(
+        MedusaError.Types.INVALID_DATA,
+        "Missing account holder data while updating account holder."
+      )
+    }
+
+    let accountHolder: InferEntityType<typeof AccountHolder> | undefined
+    let providerAccountHolder: UpdateAccountHolderOutput | undefined
+
+    providerAccountHolder =
+      await this.paymentProviderService_.updateAccountHolder(
+        input.provider_id,
+        {
+          context: input.context,
+        }
+      )
+
+    // The data field can be empty when either the method is not supported or an account holder wasn't updated
+    // We still want to do the update as we might only be updating the metadata
+    accountHolder = await this.accountHolderService_.update(
+      {
+        id: input.id,
+        ...(providerAccountHolder?.data
+          ? { data: providerAccountHolder.data }
+          : {}),
+        metadata: input.metadata,
+      },
+      sharedContext
+    )
 
     return await this.baseRepository_.serialize(accountHolder)
   }

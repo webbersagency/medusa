@@ -26,6 +26,8 @@ import {
   RetrievePaymentOutput,
   SavePaymentMethodInput,
   SavePaymentMethodOutput,
+  UpdateAccountHolderInput,
+  UpdateAccountHolderOutput,
   UpdatePaymentInput,
   UpdatePaymentOutput,
   WebhookActionResult,
@@ -373,6 +375,66 @@ abstract class StripeBase extends AbstractPaymentProvider<StripeOptions> {
     } catch (e) {
       throw this.buildError(
         "An error occurred in createAccountHolder when creating a Stripe customer",
+        e
+      )
+    }
+  }
+
+  async updateAccountHolder({
+    context,
+  }: UpdateAccountHolderInput): Promise<UpdateAccountHolderOutput> {
+    const { account_holder, customer, idempotency_key } = context
+
+    if (!account_holder?.data?.id) {
+      throw this.buildError(
+        "No account holder in context",
+        new Error("No account holder provided while updating account holder")
+      )
+    }
+
+    // If no customer context was provided, we simply don't update anything within the provider
+    if (!customer) {
+      return {}
+    }
+
+    const accountHolderId = account_holder.data.id as string
+
+    const shipping = customer.billing_address
+      ? ({
+          address: {
+            city: customer.billing_address.city,
+            country: customer.billing_address.country_code,
+            line1: customer.billing_address.address_1,
+            line2: customer.billing_address.address_2,
+            postal_code: customer.billing_address.postal_code,
+            state: customer.billing_address.province,
+          },
+        } as Stripe.CustomerCreateParams.Shipping)
+      : undefined
+
+    try {
+      const stripeCustomer = await this.stripe_.customers.update(
+        accountHolderId,
+        {
+          email: customer.email,
+          name:
+            customer.company_name ||
+            `${customer.first_name ?? ""} ${customer.last_name ?? ""}`.trim() ||
+            undefined,
+          phone: customer.phone as string | undefined,
+          ...shipping,
+        },
+        {
+          idempotencyKey: idempotency_key,
+        }
+      )
+
+      return {
+        data: stripeCustomer as unknown as Record<string, unknown>,
+      }
+    } catch (e) {
+      throw this.buildError(
+        "An error occurred in updateAccountHolder when updating a Stripe customer",
         e
       )
     }

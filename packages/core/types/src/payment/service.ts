@@ -35,6 +35,7 @@ import {
   CreateAccountHolderDTO,
   UpsertPaymentCollectionDTO,
   CreatePaymentMethodDTO,
+  UpdateAccountHolderDTO,
 } from "./mutations"
 import { WebhookActionResult } from "./provider"
 
@@ -785,6 +786,37 @@ export interface IPaymentModuleService extends IModuleService {
    */
   createAccountHolder(
     input: CreateAccountHolderDTO,
+    sharedContext?: Context
+  ): Promise<AccountHolderDTO>
+
+  /**
+   * This method updates(if supported by provider) the account holder in the payment provider.
+   *
+   * @param {UpdateAccountHolderDTO} data - The details of the account holder.
+   * @param {Context} sharedContext - A context used to share resources, such as transaction manager, between the application and the module.
+   * @returns {Promise<Record<string, unknown>>} The account holder's details in the payment provider, typically just the ID.
+   *
+   * @example
+   * const accountHolder =
+   *   await paymentModuleService.updateAccountHolder(
+   *     {
+   *       provider_id: "stripe",
+   *       context: {
+   *         account_holder: {
+   *           data: {
+   *             id: "acc_holder_123",
+   *           },
+   *         },
+   *         customer: {
+   *           id: "cus_123",
+   *           company_name: "new_name",
+   *         },
+   *       },
+   *     }
+   *   )
+   */
+  updateAccountHolder(
+    input: UpdateAccountHolderDTO,
     sharedContext?: Context
   ): Promise<AccountHolderDTO>
 
