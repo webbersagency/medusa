@@ -873,7 +873,7 @@ export interface IPaymentModuleService extends IModuleService {
    */
   listPaymentMethods(
     filters: FilterablePaymentMethodProps,
-    config: FindConfig<PaymentMethodDTO>,
+    config?: FindConfig<PaymentMethodDTO>,
     sharedContext?: Context
   ): Promise<PaymentMethodDTO[]>
 
@@ -907,7 +907,7 @@ export interface IPaymentModuleService extends IModuleService {
    */
   listAndCountPaymentMethods(
     filters: FilterablePaymentMethodProps,
-    config: FindConfig<PaymentMethodDTO>,
+    config?: FindConfig<PaymentMethodDTO>,
     sharedContext?: Context
   ): Promise<[PaymentMethodDTO[], number]>
 
