@@ -315,26 +315,30 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/pricing",
-    "title": "Pricing",
-    "autogenerate_path": "/pricing",
+    "title": "Price Lists",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/pricing/create",
-        "title": "Create a Price List",
-        "description": "",
+        "title": "Overview",
+        "path": "/price-lists",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/pricing/manage",
-        "title": "Manage Price Lists",
-        "description": "",
+        "title": "Create Price List",
+        "path": "/price-lists/create",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Manage Price List",
+        "path": "/price-lists/manage",
         "children": []
       }
     ]

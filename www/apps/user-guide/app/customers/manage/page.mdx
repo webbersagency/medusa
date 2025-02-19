@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 
 import { EllipsisHorizontal, ArrowUpRightOnBox, EllipsisVertical } from "@medusajs/icons"
+import { Table } from "docs-ui"
 
 export const metadata = {
   title: `Manage Customers`,
@@ -35,6 +36,29 @@ To view a customer’s details:
 2. Click on the customer you want to view.
 
 ![Customers Detail Page](https://res.cloudinary.com/dza7lstvk/image/upload/v1739886949/User%20Guide/Screenshot_2025-02-18_at_3.55.21_PM_omxw5x.png)
+
+### Customer Type
+
+At the top right of the first section, you can see a badge with the customer's type:
+
+<Table>
+  <Table.Header>
+    <Table.Row>
+      <Table.HeaderCell>Customer Type</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Registered</Table.Cell>
+      <Table.Cell>A customer that has registered in your store.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Guest</Table.Cell>
+      <Table.Cell>A customer that has placed an order but hasn't registered in your store, or a customer that you created through the admin dashboard.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
 
 ---
 

@@ -191,9 +191,24 @@ export const sidebar = sidebarAttachHrefCommonOptions([
   },
   {
     type: "category",
-    path: "/pricing",
-    title: "Pricing",
-    autogenerate_path: "/pricing",
+    title: "Price Lists",
+    children: [
+      {
+        type: "link",
+        title: "Overview",
+        path: "/price-lists",
+      },
+      {
+        type: "link",
+        title: "Create Price List",
+        path: "/price-lists/create",
+      },
+      {
+        type: "link",
+        title: "Manage Price List",
+        path: "/price-lists/manage",
+      },
+    ],
   },
   {
     type: "category",
