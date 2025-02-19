@@ -1,5 +1,27 @@
 # @medusajs/dashboard
 
+## 2.6.0
+
+### Patch Changes
+
+- [#11466](https://github.com/medusajs/medusa/pull/11466) [`3b69f5a105de675fda014c8b76cd511a841716c4`](https://github.com/medusajs/medusa/commit/3b69f5a105de675fda014c8b76cd511a841716c4) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - fix(dashboard): Properly delete metadata keys, and fix number parsing
+
+- [#11488](https://github.com/medusajs/medusa/pull/11488) [`06cc658246687309291121f09205801e18537463`](https://github.com/medusajs/medusa/commit/06cc658246687309291121f09205801e18537463) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - fix(dashboard): Allow using the Enter key in product create Textarea
+
+- [#11305](https://github.com/medusajs/medusa/pull/11305) [`a88f6576bd06522f86fb2f8bd4b49f94bd4017c1`](https://github.com/medusajs/medusa/commit/a88f6576bd06522f86fb2f8bd4b49f94bd4017c1) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - feat(dashboard,admin-vite-plugin): Add support for parallel routes
+
+- [#11462](https://github.com/medusajs/medusa/pull/11462) [`b53ea77658aa4f17b41bf52c9f51c5b7a425556b`](https://github.com/medusajs/medusa/commit/b53ea77658aa4f17b41bf52c9f51c5b7a425556b) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - feat(ui,dashboard): Move InlineTip to UI package
+
+- [#11366](https://github.com/medusajs/medusa/pull/11366) [`03b8bda1ba31fa835ea6e8bba07160d4495039ef`](https://github.com/medusajs/medusa/commit/03b8bda1ba31fa835ea6e8bba07160d4495039ef) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - fix(dashboard): Fix size of buttons and use Link to navigate
+
+- [#11414](https://github.com/medusajs/medusa/pull/11414) [`47edd01deec79b394552cea349f1e41b7b88723b`](https://github.com/medusajs/medusa/commit/47edd01deec79b394552cea349f1e41b7b88723b) Thanks [@kasperkristensen](https://github.com/kasperkristensen)! - fix(admin-vite-plugin,admin-bundler,ui,icons,dashboard,framework,types): Update Vite dependencies
+
+- Updated dependencies [[`32ad13813bc267a04ea95d34a479efa5309b3051`](https://github.com/medusajs/medusa/commit/32ad13813bc267a04ea95d34a479efa5309b3051), [`b53ea77658aa4f17b41bf52c9f51c5b7a425556b`](https://github.com/medusajs/medusa/commit/b53ea77658aa4f17b41bf52c9f51c5b7a425556b), [`47edd01deec79b394552cea349f1e41b7b88723b`](https://github.com/medusajs/medusa/commit/47edd01deec79b394552cea349f1e41b7b88723b)]:
+  - @medusajs/js-sdk@2.6.0
+  - @medusajs/ui@4.0.6
+  - @medusajs/icons@2.6.0
+  - @medusajs/admin-shared@2.6.0
+
 ## 2.5.0
 
 ### Patch Changes
