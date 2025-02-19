@@ -21,9 +21,9 @@ When you import the CSV file, Medusa will either create or update products based
 
 ### CSV File Format
 
-In the import form, you can download a template CSV file to see the format required for the import. The CSV file can have the following columns:
+In the import form, you can download a template CSV file to see the format required for the import.
 
-{/* TODO need updates */}
+Each row in the CSV file represents a product variant to create or update. The columns in the CSV file holds the details of the product variant and its associated product. The CSV file can have the following columns:
 
 <Table>
   <Table.Header>
@@ -74,8 +74,8 @@ In the import form, you can download a template CSV file to see the format requi
       <Table.Cell>The ID of the product type.</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell>`Product Category 1`</Table.Cell>
-      <Table.Cell>The primary category of the product.</Table.Cell>
+      <Table.Cell>`Product Category *`</Table.Cell>
+      <Table.Cell>The ID of a product category, where `*` is the number of the category, allowing you to add more than one category. For example, `Product Category 1`. </Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Created At`</Table.Cell>
@@ -87,7 +87,7 @@ In the import form, you can download a template CSV file to see the format requi
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Discountable`</Table.Cell>
-      <Table.Cell>Whether the product can be discounted. Can be `TRUE` or `FALSE`.</Table.Cell>
+      <Table.Cell>Whether the product can be discounted. Can be `true` or `false`.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Height`</Table.Cell>
@@ -99,7 +99,7 @@ In the import form, you can download a template CSV file to see the format requi
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Image *`</Table.Cell>
-      <Table.Cell>The URL of a product image, where `*` is the image's number. For example, `Product Image 1`.</Table.Cell>
+      <Table.Cell>The URL of a product image, where `*` is the image's number, allowing you to add more than one image. For example, `Product Image 1`.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Length`</Table.Cell>
@@ -119,7 +119,11 @@ In the import form, you can download a template CSV file to see the format requi
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Tag *`</Table.Cell>
-      <Table.Cell>The ID of the product's tag, where `*` is the tag's number. For example, `Product Tag 1`.</Table.Cell>
+      <Table.Cell>The ID of the product's tag, where `*` is the tag's number, allowing you to add more than one tag. For example, `Product Tag 1`.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>`Product Sales Channel *`</Table.Cell>
+      <Table.Cell>The ID of a sales channel the product is available in, where `*` is the sales channel's number, allowing you to add more than one sales channel. For example, `Product Sales Channel 1`.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Product Updated At`</Table.Cell>
@@ -132,10 +136,6 @@ In the import form, you can download a template CSV file to see the format requi
     <Table.Row>
       <Table.Cell>`Product Width`</Table.Cell>
       <Table.Cell>The width of the product.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>`Shipping Profile Id`</Table.Cell>
-      <Table.Cell>The ID of the product's shipping profile.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Id`</Table.Cell>
@@ -167,11 +167,11 @@ In the import form, you can download a template CSV file to see the format requi
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Manage Inventory`</Table.Cell>
-      <Table.Cell>Whether Medusa manages the variant's inventory. Can be `TRUE` or `FALSE`.</Table.Cell>
+      <Table.Cell>Whether Medusa manages the variant's inventory. Can be `true` or `false`.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Allow Backorder`</Table.Cell>
-      <Table.Cell>Whether the variant allows backorders. Can be `TRUE` or `FALSE`.</Table.Cell>
+      <Table.Cell>Whether the variant allows backorders. Can be `true` or `false`.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Barcode`</Table.Cell>
@@ -218,6 +218,10 @@ In the import form, you can download a template CSV file to see the format requi
       <Table.Cell>The price of the variant in a currency, where `*` is the currency's ISO code. For example, `Variant Price USD`.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell>`Variant Price [X] Y`</Table.Cell>
+      <Table.Cell>The price of the variant in a region, where `X` is the region's name, and `Y` is the ISO currency code of the region. For example, `Variant Price Europe [EUR]`.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell>`Variant Product Id`</Table.Cell>
       <Table.Cell>The ID of the product the variant belongs to.</Table.Cell>
     </Table.Row>
@@ -227,7 +231,7 @@ In the import form, you can download a template CSV file to see the format requi
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Variant Rank`</Table.Cell>
-      <Table.Cell>The rank of the variant.</Table.Cell>
+      <Table.Cell>The rank of the variant among its siblings. Can be `0` or higher.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>`Variant Weight`</Table.Cell>
@@ -236,6 +240,10 @@ In the import form, you can download a template CSV file to see the format requi
     <Table.Row>
       <Table.Cell>`Variant Width`</Table.Cell>
       <Table.Cell>The width of the variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>`Shipping Profile Id`</Table.Cell>
+      <Table.Cell>The ID of the shipping profile that the product belongs to.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
