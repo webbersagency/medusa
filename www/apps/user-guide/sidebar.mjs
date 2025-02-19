@@ -165,9 +165,29 @@ export const sidebar = sidebarAttachHrefCommonOptions([
   },
   {
     type: "category",
-    path: "/discounts",
-    title: "Discounts",
-    autogenerate_path: "/discounts",
+    title: "Promotions",
+    children: [
+      {
+        type: "link",
+        title: "Overview",
+        path: "/promotions",
+      },
+      {
+        type: "link",
+        title: "Create Promotion",
+        path: "/promotions/create",
+      },
+      {
+        type: "link",
+        title: "Manage Promotion",
+        path: "/promotions/manage",
+      },
+      {
+        type: "link",
+        title: "Manage Campaigns",
+        path: "/promotions/campaigns",
+      },
+    ],
   },
   {
     type: "category",

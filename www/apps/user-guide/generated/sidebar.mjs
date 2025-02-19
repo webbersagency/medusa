@@ -275,26 +275,38 @@ export const generatedSidebar = [
     "loaded": true,
     "isPathHref": true,
     "type": "category",
-    "path": "/discounts",
-    "title": "Discounts",
-    "autogenerate_path": "/discounts",
+    "title": "Promotions",
     "children": [
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/discounts/create",
-        "title": "Create a Discount",
-        "description": "",
+        "title": "Overview",
+        "path": "/promotions",
         "children": []
       },
       {
         "loaded": true,
         "isPathHref": true,
         "type": "link",
-        "path": "/discounts/manage",
-        "title": "Manage Discounts",
-        "description": "",
+        "title": "Create Promotion",
+        "path": "/promotions/create",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Manage Promotion",
+        "path": "/promotions/manage",
+        "children": []
+      },
+      {
+        "loaded": true,
+        "isPathHref": true,
+        "type": "link",
+        "title": "Manage Campaigns",
+        "path": "/promotions/campaigns",
         "children": []
       }
     ]
