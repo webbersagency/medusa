@@ -102,6 +102,8 @@ async function generateMigrations(
   const DB_HOST = process.env.DB_HOST ?? "localhost"
   const DB_USERNAME = process.env.DB_USERNAME ?? ""
   const DB_PASSWORD = process.env.DB_PASSWORD ?? ""
+  const DB_PORT = process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432
+  const DATABASE_URL = process.env.DATABASE_URL
 
   for (const moduleDescriptor of moduleDescriptors) {
     logger.info(
@@ -113,8 +115,10 @@ async function generateMigrations(
       {
         entities: moduleDescriptor.entities,
         host: DB_HOST,
+        port: DB_PORT,
         user: DB_USERNAME,
         password: DB_PASSWORD,
+        ...(DATABASE_URL ? { clientUrl: DATABASE_URL } : {}),
         migrations: {
           path: moduleDescriptor.migrationsPath,
         },
