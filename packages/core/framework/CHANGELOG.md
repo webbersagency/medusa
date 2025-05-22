@@ -1,5 +1,20 @@
 # @medusajs/framework
 
+## 2.8.4
+
+### Patch Changes
+
+- [#12582](https://github.com/medusajs/medusa/pull/12582) [`7685d66c0775167994150e61a8b628ad6289ce23`](https://github.com/medusajs/medusa/commit/7685d66c0775167994150e61a8b628ad6289ce23) Thanks [@adrien2p](https://github.com/adrien2p)! - fix(framework): Fix compiler to create the dist after clean-up
+
+- Updated dependencies []:
+  - @medusajs/cli@2.8.4
+  - @medusajs/modules-sdk@2.8.4
+  - @medusajs/orchestration@2.8.4
+  - @medusajs/types@2.8.4
+  - @medusajs/utils@2.8.4
+  - @medusajs/workflows-sdk@2.8.4
+  - @medusajs/telemetry@2.8.4
+
 ## 2.8.3
 
 ### Patch Changes
