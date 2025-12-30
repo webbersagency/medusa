@@ -1,5 +1,6 @@
 export const draftOrderFieldsForRefreshSteps = [
   "id",
+  "email",
   "is_draft_order",
   "status",
   "currency_code",
